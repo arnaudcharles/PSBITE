@@ -1,7 +1,10 @@
 # PSBITE
 
-PSBITE stand for "**P**owerShell **B**uffer **I**nsert **T**ext **E**ditor". It's a VIM-like text editor that supports both local and remote file editing.
+**PSBITE** stand for "**P**owerShell **B**uffer **I**nsert **T**ext **E**ditor". It's a VIM-like text editor that supports both local and remote file editing.
 It provides a familiar VIM interface with NORMAL and INSERT modes, character operations, and real-time remote synchronization.
+
+<p align="center"> <img src="./media/Logo/PSBITE%20-%20Small.png" alt="Logo" /> </p>
+
 
 Another function, **Edit-RemoteFile** is providing another way to remotly **open/editing** file with **VSCode** (or notepad) using **WinRM**.
 
