@@ -18,8 +18,6 @@ Then Edit-RemoteFile came alive in parallel for the same reasons, mainly for int
 
 ## Prerequisites
 
-This uses the following external resources:
-- The [PSModule framework](https://github.com/PSModule/Process-PSModule) for building, testing and publishing the module.
 - Require PowerShell 7
 
 ## Installation
