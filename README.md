@@ -6,6 +6,7 @@
 
 This uses the following external resources:
 - The [PSModule framework](https://github.com/PSModule/Process-PSModule) for building, testing and publishing the module.
+- Require PowerShell 7
 
 ## Installation
 
@@ -20,28 +21,39 @@ Import-Module -Name {{ NAME }}
 
 Here is a list of example that are typical use cases for the module.
 
-### Example 1: Greet an entity
-
-Provide examples for typical commands that a user would like to do with the module.
+### Edit with bidirectional synchronization (remote changes are pulled to local)
 
 ```powershell
-Greet-Entity -Name 'World'
-Hello, World!
+Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Dual
 ```
+**Simple example of Edit-RemoteFile**
+![Example of Edit-RemoteFile with simple sync](./media/Edit-RemoteFile/Edit-RemoteFile_1.png)
 
-### Example 2
+**Showing the ending process**
+![Show how the edit is ended](./media/Edit-RemoteFile/Edit-RemoteFile_2.png)
 
-Provide examples for typical commands that a user would like to do with the module.
+**Showing the Dual and DelTemp, used on a logs**
+![Show the Dual and DelTemp flags](./media/Edit-RemoteFile/Edit-RemoteFile_3.png)
+
+-------------------------
+
+### Edit a remote file with real-time synchronization
 
 ```powershell
-Import-Module -Name PSModuleTemplate
+Start-PSBite -FilePath "C:\scripts\remote.ps1" -ComputerName "server01"
 ```
+
+**Opening a file in Normal Mode**
+![Opening a file in Normal Mode](./media/Start-PSBite/Start-PSBite_1.png)
+
+**Editing the same file**
+![Editing the same file](./media/Start-PSBite/Start-PSBite_2.png)
 
 ### Find more examples
 
 To find more examples of how to use the module, please refer to the [examples](examples) folder.
 
-Alternatively, you can use the Get-Command -Module 'This module' to find more commands that are available in the module.
+Alternatively, you can use the Get-Command -Module 'PSBITE' to find more commands that are available in the module.
 To find examples of each of the commands you can use Get-Help -Examples 'CommandName'.
 
 ## Documentation
