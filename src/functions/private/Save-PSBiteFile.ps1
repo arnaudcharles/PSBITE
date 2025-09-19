@@ -46,13 +46,18 @@ function Save-PSBiteFile {
     [OutputType()]
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory = $true)]
-        [string[]]$Lines,
+        [Parameter()]
+        [AllowEmptyCollection()]
+        [string[]]$Lines = @(""),
 
         [Parameter(Mandatory = $true)]
         [string]$FilePath
     )
 
+    # If content is removed or empty, ensure at least one blank line is written to avoid errors.
+    if (-not $Lines -or $Lines.Count -eq 0) {
+        $Lines = @("")
+    }
     try {
         $Lines | Set-Content -Path $FilePath -Encoding UTF8 -Force
         Write-PSBiteMessage "💾 File saved: $FilePath" "Green"
