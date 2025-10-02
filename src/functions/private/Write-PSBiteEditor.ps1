@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Render the PSBite text editor interface in the console.
 

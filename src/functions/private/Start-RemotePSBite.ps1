@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Starts a remote PSBite session on a specified computer.
 
@@ -96,11 +96,9 @@ function Start-RemotePSBite {
 
         # Start PSBITE with remote sync
         Start-RemotePSBiteEditor -LocalPath $localTempFile -RemotePath $FilePath -Session $session -ComputerName $ComputerName -AutoSave:$AutoSave
-    }
-    catch {
+    } catch {
         Write-Error "Error in Remote PSBITE: $_"
-    }
-    finally {
+    } finally {
         if ($session) {
             Remove-PSSession $session -ErrorAction SilentlyContinue
         }

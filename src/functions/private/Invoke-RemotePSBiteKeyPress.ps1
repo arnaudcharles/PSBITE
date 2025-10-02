@@ -71,8 +71,7 @@ function Invoke-RemotePSBiteKeyPress {
                     Copy-Item -Path $LocalPath -Destination $RemotePath -ToSession $Session -Force
                     Write-PSBiteMessage "💾 Saved and synced to $ComputerName" "Green"
                     $Saved.Value = $true
-                }
-                catch {
+                } catch {
                     Write-PSBiteMessage "❌ Save failed: $_" "Red"
                 }
                 return "CONTINUE"
@@ -92,8 +91,7 @@ function Invoke-RemotePSBiteKeyPress {
                     Write-PSBiteMessage "💾 Saved and synced to $ComputerName" "Green"
                     $Saved.Value = $true
                     return "EXIT"
-                }
-                catch {
+                } catch {
                     Write-PSBiteMessage "❌ Save failed: $_" "Red"
                     return "CONTINUE"
                 }

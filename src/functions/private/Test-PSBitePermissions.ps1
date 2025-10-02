@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Test read/write permissions for PSBITE file editing (local or remote).
 
@@ -43,8 +43,7 @@ function Test-PSBitePermissions {
                     Message = "✅ Write permissions OK"
                     Color = "Green"
                 }
-            }
-            catch {
+            } catch {
                 return @{
                     CanWrite = $false
                     Message = "❌ No write permissions for this file"
@@ -75,8 +74,7 @@ function Test-PSBitePermissions {
                 Message = "✅ Write permissions OK"
                 Color = "Green"
             }
-        }
-        catch {
+        } catch {
             return @{
                 CanWrite = $false
                 Message = "❌ No write permissions for this file"

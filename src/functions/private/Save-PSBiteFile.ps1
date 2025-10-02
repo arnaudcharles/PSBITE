@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Saves an array of text lines to a file with UTF-8 encoding for the PSBite editor.
 
@@ -61,8 +61,7 @@ function Save-PSBiteFile {
     try {
         $Lines | Set-Content -Path $FilePath -Encoding UTF8 -Force
         Write-PSBiteMessage "💾 File saved: $FilePath" "Green"
-    }
-    catch {
+    } catch {
         Write-PSBiteMessage "❌ Error saving file: $_" "Red"
     }
 }

@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Briefly describes the main functionality of the script or function.
 
@@ -63,13 +63,11 @@ function Start-RemotePSBiteEditor {
                         $lastSaveTime = Get-Date
                         Write-PSBiteMessage "💾 AutoSave: File saved and synced (5 min elapsed)" "Green"
                         Start-Sleep -Milliseconds 1000
-                    }
-                    catch {
+                    } catch {
                         Write-PSBiteMessage "❌ AutoSave failed: $_" "Red"
                         Start-Sleep -Milliseconds 1000
                     }
-                }
-                else {
+                } else {
                     $lastSaveTime = Get-Date
                 }
             }
@@ -80,8 +78,7 @@ function Start-RemotePSBiteEditor {
                 break
             }
         }
-    }
-    finally {
+    } finally {
         [Console]::Clear()
     }
 }

@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Starts a local instance of the PSBite editor.
 
@@ -85,8 +85,7 @@ function Start-LocalPSBite {
                 break
             }
         }
-    }
-    finally {
+    } finally {
         [Console]::Clear()
     }
 }

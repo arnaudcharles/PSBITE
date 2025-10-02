@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Reads a remote file in read-only mode, creates a local snapshot, and opens it in an editor with auto-refresh and cleanup.
 
@@ -83,8 +83,7 @@ function Read-RemoteFile {
             param($Path)
             try {
                 return Get-Content -Path $Path -Raw -ErrorAction Stop
-            }
-            catch {
+            } catch {
                 return "# File could not be read: $_`n# Error: $($_.Exception.Message)"
             }
         } -ArgumentList $RemotePath
@@ -109,8 +108,7 @@ function Read-RemoteFile {
             if ($vscodeProcess.ExitCode -eq 0) {
                 $vscodeAvailable = $true
             }
-        }
-        catch {
+        } catch {
             $vscodeAvailable = $false
         }
 
@@ -121,8 +119,7 @@ function Read-RemoteFile {
                 if (-not $Silent -and $configResult) {
                     Write-Host "✓ VSCode configured for trusted mode" -ForegroundColor Green
                 }
-            }
-            catch {
+            } catch {
                 # Continue anyway
                 Write-Debug -Message "VSCode configuration failed for trusted mode"
             }

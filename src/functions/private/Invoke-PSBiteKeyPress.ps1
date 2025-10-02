@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Handles key press events for PSBITE editor command mode operations.
 
