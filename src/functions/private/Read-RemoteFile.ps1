@@ -122,6 +122,7 @@ function Read-RemoteFile {
             }
             catch {
                 # Continue anyway
+                Write-Debug -Message "VSCode configuration failed for trusted mode"
             }
 
             # Open with VSCode

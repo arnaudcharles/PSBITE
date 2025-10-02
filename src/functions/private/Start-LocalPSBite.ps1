@@ -50,15 +50,12 @@ function Start-LocalPSBite {
         $content = Get-Content $FilePath
         if ($null -eq $content) {
             $lines = [string[]]@("")
-        }
-        elseif ($content -is [string]) {
+        } elseif ($content -is [string]) {
             $lines = [string[]]@($content)
-        }
-        else {
+        } else {
             $lines = [string[]]$content
         }
-    }
-    else {
+    } else {
         $lines = [string[]]@(" ")
         $saved = $false
     }
@@ -77,8 +74,7 @@ function Start-LocalPSBite {
                     $lastSaveTime = Get-Date
                     Write-PSBiteMessage "💾 AutoSave: File saved (5 min elapsed)" "Green"
                     Start-Sleep -Milliseconds 1000
-                }
-                else {
+                } else {
                     $lastSaveTime = Get-Date
                 }
             }

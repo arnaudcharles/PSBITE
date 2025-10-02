@@ -84,8 +84,7 @@ function Start-PSBite {
         Write-Host "   📂 Remote path: $FilePath" -ForegroundColor Cyan
         if ($AutoSave) { Write-Host "   ⏰ AutoSave: Every 5 minutes" -ForegroundColor Yellow }
         Start-RemotePSBite -FilePath $FilePath -ComputerName $ComputerName -UseSSL $UseSSL -AutoSave:$AutoSave
-    }
-    else {
+    } else {
         Write-Host "💻 PSBITE - Local Mode" -ForegroundColor Green
         Write-Host "   📂 Local path: $FilePath" -ForegroundColor Cyan
         if ($AutoSave) { Write-Host "   ⏰ AutoSave: Every 5 minutes" -ForegroundColor Yellow }

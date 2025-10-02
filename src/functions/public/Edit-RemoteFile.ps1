@@ -1,61 +1,60 @@
-﻿<#
-.SYNOPSIS
-Edit a remote file via VSCode with automatic synchronization using WinRM
+﻿function Edit-RemoteFile {
+    <#
+        .SYNOPSIS
+        Edit a remote file via VSCode with automatic synchronization using WinRM
 
-.DESCRIPTION
-Allows editing files on remote Windows servers via WinRM by synchronizing them automatically with VSCode.
-Supports both unidirectional (local to remote) and bidirectional synchronization.
-Falls back to Notepad if VSCode is not available.
-If files like logs are locked, switches to read-only mode with periodic refresh, 15s by default.
-In RO mode, -DelTemp parameter is set up by default, save and sync is disabled.
+        .DESCRIPTION
+        Allows editing files on remote Windows servers via WinRM by synchronizing them automatically with VSCode.
+        Supports both unidirectional (local to remote) and bidirectional synchronization.
+        Falls back to Notepad if VSCode is not available.
+        If files like logs are locked, switches to read-only mode with periodic refresh, 15s by default.
+        In RO mode, -DelTemp parameter is set up by default, save and sync is disabled.
 
-.PARAMETER ComputerName
-Remote server name or FQDN
+        .PARAMETER ComputerName
+        Remote server name or FQDN
 
-.PARAMETER RemotePath
-Full path to the file on the remote server
+        .PARAMETER RemotePath
+        Full path to the file on the remote server
 
-.PARAMETER LocalTempDir
-Local temporary directory for file synchronization (default: $env:TEMP\RemoteEdit)
+        .PARAMETER LocalTempDir
+        Local temporary directory for file synchronization (default: $env:TEMP\RemoteEdit)
 
-.PARAMETER UseSSL
-Use SSL for WinRM connection (default: true)
+        .PARAMETER UseSSL
+        Use SSL for WinRM connection (default: true)
 
-.PARAMETER DelTemp
-Delete temporary file when finished (default: false - file is preserved)
+        .PARAMETER DelTemp
+        Delete temporary file when finished (default: false - file is preserved)
 
-.PARAMETER Dual
-Enable bidirectional synchronization - monitors both local and remote file changes
+        .PARAMETER Dual
+        Enable bidirectional synchronization - monitors both local and remote file changes
 
-.PARAMETER Silent
-Minimal output - show only essential connection and monitoring messages
+        .PARAMETER Silent
+        Minimal output - show only essential connection and monitoring messages
 
-.PARAMETER Verbose
-Enable verbose output for debugging and detailed information. SO AJ :-)
+        .PARAMETER Verbose
+        Enable verbose output for debugging and detailed information. SO AJ :-)
 
-.EXAMPLE
-Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1"
-Edit a remote PowerShell script with SSL and unidirectional sync
+        .EXAMPLE
+        Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1"
+        Edit a remote PowerShell script with SSL and unidirectional sync
 
-.EXAMPLE
-Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Dual
-Edit with bidirectional synchronization (remote changes are pulled to local)
+        .EXAMPLE
+        Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Dual
+        Edit with bidirectional synchronization (remote changes are pulled to local)
 
-.EXAMPLE
-Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Silent
-Edit with minimal output showing only essential messages
+        .EXAMPLE
+        Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Silent
+        Edit with minimal output showing only essential messages
 
-.EXAMPLE
-Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -DelTemp
-Edit and delete temporary file when finished
+        .EXAMPLE
+        Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -DelTemp
+        Edit and delete temporary file when finished
 
-.EXAMPLE
-Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Verbose
-Edit with verbose output showing file paths
-#>
+        .EXAMPLE
+        Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Verbose
+        Edit with verbose output showing file paths
+    #>
 
-
-function Edit-RemoteFile {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         "PSUseShouldProcessForStateChangingFunctions", "", Justification = "Real-time file synchronization tool - confirmations would break user experience"
     )]
@@ -120,8 +119,7 @@ function Edit-RemoteFile {
         if ($UseSSL) {
             $sessionParams.UseSSL = $true
             if (-not $Silent) { Write-Verbose "Using SSL connection" }
-        }
-        else {
+        } else {
             if (-not $Silent) { Write-Verbose "Using non-SSL connection" }
         }
 
@@ -178,8 +176,7 @@ function Edit-RemoteFile {
                     Write-Error "Cannot create file: $Path - $_"
                     return $false
                 }
-            }
-            else {
+            } else {
                 Write-Output "File exists: $Path"
                 Write-Verbose "File exists and is ready for editing: $Path"
                 return $true
@@ -237,8 +234,7 @@ function Edit-RemoteFile {
                 $readOnlyMode = $true
                 Read-RemoteFile -ComputerName $ComputerName -RemotePath $RemotePath -LocalTempDir $LocalTempDir -Session $session -Silent:$Silent
                 return  # Exit Edit-RemoteFile --> Read-RemoteFile
-            }
-            else {
+            } else {
                 throw $_
             }
         }
@@ -269,8 +265,7 @@ function Edit-RemoteFile {
                 if (-not $Silent) {
                     if ($configResult) {
                         Write-Host "✓ VSCode detected and configured for trusted mode" -ForegroundColor Green
-                    }
-                    else {
+                    } else {
                         Write-Host "⚠️ VSCode detected but configuration failed, restricted mode possible" -ForegroundColor Yellow
                     }
                 }
@@ -301,8 +296,7 @@ function Edit-RemoteFile {
             if (-not $Silent) {
                 Write-Host "✓ VSCode opened with file" -ForegroundColor Green
             }
-        }
-        else {
+        } else {
             # Open with Notepad
             Start-Process "notepad.exe" -ArgumentList "`"$localPath`"" -WindowStyle Normal
             Start-Sleep -Seconds 1
@@ -317,8 +311,7 @@ function Edit-RemoteFile {
         Write-Host "`n[7/7] Starting file monitoring..." -ForegroundColor Yellow
         if ($Dual) {
             Write-Host "👀 Bidirectional monitoring active - Local ↔ Remote synchronization" -ForegroundColor Cyan
-        }
-        else {
+        } else {
             Write-Host "👀 Unidirectional monitoring active - Local → Remote synchronization" -ForegroundColor Cyan
         }
         Write-Host "🔄 Press Ctrl+E to stop remote edit" -ForegroundColor Cyan
@@ -357,8 +350,7 @@ function Edit-RemoteFile {
                     if (-not $Silent) {
                         Write-Host "✓ Local file deleted (-DelTemp parameter)" -ForegroundColor Yellow
                     }
-                }
-                else {
+                } else {
                     if (-not $Silent) {
                         Write-Host "`n📁 Local file preserved: $localPath" -ForegroundColor Green
                         Write-Host "💡 Will be automatically deleted on next reboot" -ForegroundColor Gray
