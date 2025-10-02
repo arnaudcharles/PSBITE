@@ -32,11 +32,9 @@ function Start-RemotePSBiteEditor {
     $content = Get-Content $LocalPath
     if ($null -eq $content) {
         $lines = [string[]]@(" ")
-    }
-    elseif ($content -is [string]) {
+    } elseif ($content -is [string]) {
         $lines = [string[]]@($content)
-    }
-    else {
+    } else {
         $lines = [string[]]$content
     }
 

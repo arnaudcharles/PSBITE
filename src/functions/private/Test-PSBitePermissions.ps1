@@ -40,19 +40,18 @@ function Test-PSBitePermissions {
 
                 return @{
                     CanWrite = $true
-                    Message = "✅ Write permissions OK"
-                    Color = "Green"
+                    Message  = "✅ Write permissions OK"
+                    Color    = "Green"
                 }
             } catch {
                 return @{
                     CanWrite = $false
-                    Message = "❌ No write permissions for this file"
-                    Color = "Red"
+                    Message  = "❌ No write permissions for this file"
+                    Color    = "Red"
                 }
             }
         } -ArgumentList $FilePath
-    }
-    else {
+    } else {
         # Test permissions locally
         try {
             $fullPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($FilePath)
@@ -71,14 +70,14 @@ function Test-PSBitePermissions {
 
             return @{
                 CanWrite = $true
-                Message = "✅ Write permissions OK"
-                Color = "Green"
+                Message  = "✅ Write permissions OK"
+                Color    = "Green"
             }
         } catch {
             return @{
                 CanWrite = $false
-                Message = "❌ No write permissions for this file"
-                Color = "Red"
+                Message  = "❌ No write permissions for this file"
+                Color    = "Red"
             }
         }
     }

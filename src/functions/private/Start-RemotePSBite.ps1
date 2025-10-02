@@ -42,7 +42,7 @@ function Start-RemotePSBite {
         # Create remote session
         $sessionParams = @{
             ComputerName = $ComputerName
-            ErrorAction = 'Stop'
+            ErrorAction  = 'Stop'
         }
         if ($UseSSL) { $sessionParams.UseSSL = $true }
 
