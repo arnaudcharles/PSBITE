@@ -3,7 +3,9 @@
 Monitors a remote file for changes and updates a local copy at regular intervals.
 
 .DESCRIPTION
-Read-FileWatcher periodically reads the content of a remote file via a PowerShell session and updates a local file with the latest content. The function checks for user interruption (Ctrl+E), local file deletion, and handles errors gracefully. It is intended for interactive, read-only monitoring scenarios.
+Read-FileWatcher periodically reads the content of a remote file via a PowerShell session and updates a local file with the latest content.
+The function checks for user interruption (Ctrl+E), local file deletion, and handles errors gracefully.
+It is intended for interactive, read-only monitoring scenarios.
 
 .PARAMETER LocalPath
 The path to the local file to update with the remote file's content.

@@ -3,9 +3,11 @@
     Reads a remote file in read-only mode, creates a local snapshot, and opens it in an editor with auto-refresh and cleanup.
 
 .DESCRIPTION
-    This function connects to a remote computer using an existing PSSession, reads the specified file in a read-only manner, and creates a local snapshot of the file.
+    This function connects to a remote computer using an existing PSSession, reads the specified file in a read-only manner,
+        and creates a local snapshot of the file.
     The local snapshot is opened in VSCode (if available) or Notepad for viewing.
-    In RO mode : The function monitors the remote file for changes and refreshes the local snapshot every 15 seconds. The local file is automatically cleaned up after the session ends.
+    In RO mode : The function monitors the remote file for changes and refreshes the local snapshot every 15 seconds.
+    The local file is automatically cleaned up after the session ends.
 
 .PARAMETER ComputerName
     The name of the remote computer.

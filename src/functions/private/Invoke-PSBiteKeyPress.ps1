@@ -36,7 +36,8 @@ String
 Returns "CONTINUE" to continue the editing session or "EXIT" to terminate the editor.
 
 .EXAMPLE
-$result = Invoke-PSBiteKeyPress -Key $keyEvent -Lines ([ref]$lines) -CursorRow ([ref]$row) -CursorCol ([ref]$col) -Mode ([ref]$mode) -FilePath "C:\script.ps1" -Saved ([ref]$saved) -ScrollOffset ([ref]$offset)
+$result = Invoke-PSBiteKeyPress -Key $keyEvent -Lines ([ref]$lines) -CursorRow ([ref]$row) -CursorCol ([ref]$col)
+    -Mode ([ref]$mode) -FilePath "C:\script.ps1" -Saved ([ref]$saved) -ScrollOffset ([ref]$offset)
 
 Processes a key press event and returns the next action to take.
 
