@@ -132,8 +132,7 @@ function Read-RemoteFile {
             if (-not $Silent) {
                 Write-Host "✓ VSCode opened with read-only file" -ForegroundColor Green
             }
-        }
-        else {
+        } else {
             # Open with Notepad
             Start-Process "notepad.exe" -ArgumentList "`"$localPath`"" -WindowStyle Normal
             Start-Sleep -Seconds 1

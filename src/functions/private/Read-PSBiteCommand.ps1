@@ -52,8 +52,7 @@ function Read-PSBiteCommand {
                 $command = $command.Substring(0, $command.Length - 1)
                 Write-Host "`b `b" -NoNewline
             }
-        }
-        elseif ($key.Character -and [char]::IsControl($key.Character) -eq $false) {
+        } elseif ($key.Character -and [char]::IsControl($key.Character) -eq $false) {
             $command += $key.Character
             Write-Host $key.Character -NoNewline -ForegroundColor Yellow
         }

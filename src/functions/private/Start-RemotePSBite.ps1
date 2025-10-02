@@ -3,7 +3,8 @@
 Starts a remote PSBite session on a specified computer.
 
 .DESCRIPTION
-This function establishes a PowerShell remoting session to a target computer, verifies permissions, synchronizes a file for editing, and launches the PSBite editor with remote sync capabilities.
+This function establishes a PowerShell remoting session to a target computer, verifies permissions,
+synchronizes a file for editing, and launches the PSBite editor with remote sync capabilities.
 
 .PARAMETER FilePath
 The path to the file on the remote computer to edit.
@@ -95,7 +96,6 @@ function Start-RemotePSBite {
 
         # Start PSBITE with remote sync
         Start-RemotePSBiteEditor -LocalPath $localTempFile -RemotePath $FilePath -Session $session -ComputerName $ComputerName -AutoSave:$AutoSave
-
     }
     catch {
         Write-Error "Error in Remote PSBITE: $_"
