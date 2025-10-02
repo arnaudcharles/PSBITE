@@ -157,9 +157,7 @@ function Start-FileWatcher {
                     $syncInProgress = $false
                     Write-Verbose "Sync operation completed"
                 }
-            }
-            # Handle remote → local sync (dual mode only) with NUL character cleanup
-            elseif ($remoteChanged -and $Dual -and -not $syncInProgress) {
+            } elseif ($remoteChanged -and $Dual -and -not $syncInProgress) { # Handle remote → local sync (dual mode only) with NUL character cleanup
                 $syncInProgress = $true
                 $noActivityCount = 0
                 $waitingMessageShown = $false
@@ -185,8 +183,7 @@ function Start-FileWatcher {
                         $content = $content -replace [char]0, ''  # Remove NUL characters
                         $content | Set-Content -Path $LocalPath -Encoding UTF8 -Force
                         Write-Verbose "Wrote cleaned content to local file with UTF-8 encoding"
-                    }
-                    else {
+                    } else {
                         # Handle empty file case
                         Set-Content -Path $LocalPath -Value "" -Encoding UTF8 -Force
                         Write-Verbose "Local file was empty, created empty UTF-8 file"
