@@ -37,7 +37,7 @@ Controls:
 #>
 function Start-PSBite {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
-    "PSAvoidUsingWriteHost", "", Justification = "Interactive editor with colored UI"
+        "PSAvoidUsingWriteHost", "", Justification = "Interactive editor with colored UI"
     )]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         "PSUseShouldProcessForStateChangingFunctions", "", Justification = "Interactive text editor - confirmations would break user experience"

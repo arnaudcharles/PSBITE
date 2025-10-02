@@ -154,7 +154,8 @@ function Start-FileWatcher {
                     $syncInProgress = $false
                     Write-Verbose "Sync operation completed"
                 }
-            } elseif ($remoteChanged -and $Dual -and -not $syncInProgress) { # Handle remote → local sync (dual mode only) with NUL character cleanup
+            } elseif ($remoteChanged -and $Dual -and -not $syncInProgress) {
+                # Handle remote → local sync (dual mode only) with NUL character cleanup
                 $syncInProgress = $true
                 $noActivityCount = 0
                 $waitingMessageShown = $false

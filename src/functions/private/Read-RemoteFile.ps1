@@ -151,8 +151,7 @@ function Read-RemoteFile {
 
         Read-FileWatcher -LocalPath $localPath -RemotePath $RemotePath -Session $Session -ComputerName $ComputerName -Silent:$Silent
 
-    }
-    finally {
+    } finally {
         # Force cleanup in read-only mode
         if ($localPath -and (Test-Path $localPath)) {
             Remove-Item $localPath -Force -ErrorAction SilentlyContinue
