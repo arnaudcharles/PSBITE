@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 Saves an array of text lines to a file with UTF-8 encoding for the PSBite editor.
 

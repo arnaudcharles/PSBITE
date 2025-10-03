@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 Briefly describes the main functionality of the script or function.
 

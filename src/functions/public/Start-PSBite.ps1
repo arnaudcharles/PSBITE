@@ -1,4 +1,4 @@
-﻿function Start-PSBite {
+function Start-PSBite {
     <#
         .SYNOPSIS
         Start the PSBITE text editor for local or remote file editing using WinRM.

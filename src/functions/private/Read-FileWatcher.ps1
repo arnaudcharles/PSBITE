@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 Monitors a remote file for changes and updates a local copy at regular intervals.
 

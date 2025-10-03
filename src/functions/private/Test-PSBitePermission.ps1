@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 Test read/write permissions for PSBITE file editing (local or remote).
 

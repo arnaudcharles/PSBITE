@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 Starts a remote PSBite session on a specified computer.
 

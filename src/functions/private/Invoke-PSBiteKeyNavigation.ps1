@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 Handle key presses for PSBite editor, including VIM-style commands.
 

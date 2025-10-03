@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Reads a remote file in read-only mode, creates a local snapshot, and opens it in an editor with auto-refresh and cleanup.
 

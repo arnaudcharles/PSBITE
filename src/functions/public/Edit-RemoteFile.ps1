@@ -1,4 +1,4 @@
-﻿function Edit-RemoteFile {
+function Edit-RemoteFile {
     <#
         .SYNOPSIS
         Edit a remote file via VSCode with automatic synchronization using WinRM

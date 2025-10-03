@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Monitors a local file for changes and synchronizes it with a remote file in real-time using a PSSession.
 

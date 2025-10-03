@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 Starts a local instance of the PSBite editor.
 
