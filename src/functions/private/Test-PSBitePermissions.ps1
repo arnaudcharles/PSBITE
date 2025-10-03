@@ -60,7 +60,7 @@ function Test-PSBitePermissions {
 
             # Ensure directory exists or can be created
             if (-not (Test-Path $directory)) {
-                New-Item -Path $directory -ItemType Directory -Force -ErrorAction Stop | Out-Null
+                $null = New-Item -Path $directory -ItemType Directory -Force -ErrorAction Stop
             }
 
             # Try to create a test file

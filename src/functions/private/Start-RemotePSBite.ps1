@@ -65,9 +65,9 @@ function Start-RemotePSBite {
             if (-not (Test-Path $Path)) {
                 $directory = Split-Path $Path -Parent
                 if ($directory -and -not (Test-Path $directory)) {
-                    New-Item -Path $directory -ItemType Directory -Force | Out-Null
+                    $null = New-Item -Path $directory -ItemType Directory -Force
                 }
-                New-Item -Path $Path -ItemType File -Force | Out-Null
+                $null = New-Item -Path $Path -ItemType File -Force
                 return $false
             }
             return $true
@@ -82,7 +82,7 @@ function Start-RemotePSBite {
         # Create local temp file
         $tempDir = "$env:TEMP\PSBite"
         if (-not (Test-Path $tempDir)) {
-            New-Item -Path $tempDir -ItemType Directory -Force | Out-Null
+            $null = New-Item -Path $tempDir -ItemType Directory -Force
         }
 
         $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"

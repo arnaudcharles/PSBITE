@@ -49,10 +49,6 @@
         .EXAMPLE
         Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -DelTemp
         Edit and delete temporary file when finished
-
-        .EXAMPLE
-        Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Verbose
-        Edit with verbose output showing file paths
     #>
 
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
@@ -156,7 +152,7 @@
                 $directory = Split-Path $Path -Parent
                 if ($directory -and -not (Test-Path $directory)) {
                     try {
-                        New-Item -Path $directory -ItemType Directory -Force | Out-Null
+                        $null = New-Item -Path $directory -ItemType Directory -Force
                         Write-Output "Directory created: $directory"
                         Write-Verbose "Directory did not exist and was created: $directory"
                     } catch {
@@ -166,7 +162,7 @@
                 }
 
                 try {
-                    New-Item -Path $Path -ItemType File -Force | Out-Null
+                    $null = New-Item -Path $Path -ItemType File -Force
                     Write-Output "File created: $Path"
                     Write-Verbose "File did not exist and was created: $Path"
                     return $true
@@ -195,7 +191,7 @@
         }
 
         if (-not (Test-Path $LocalTempDir)) {
-            New-Item -Path $LocalTempDir -ItemType Directory -Force | Out-Null
+            $null = New-Item -Path $LocalTempDir -ItemType Directory -Force
         }
 
         $fileName = Split-Path $RemotePath -Leaf
