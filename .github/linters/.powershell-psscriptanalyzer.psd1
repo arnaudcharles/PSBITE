@@ -54,6 +54,7 @@
         'PSAvoidUsingWriteHost',                                 # Because this is an interactive editor with colored UI
         'PSReviewUnusedParameter',                               # Because some parameters are used in script blocks or passed to other functions
         'PSUseUsingScopeModifierInNewRunspaces',                 # Because we want to control the scope explicitly in runspaces
-        'PSUseBOMForUnicodeEncodedFiles'
+        'PSUseBOMForUnicodeEncodedFile',                         # Because we want to use UTF8 without BOM for better compatibility
+        'PSAvoidUsingComputerNameHardcoded'                      # Because some functions require hardcoded computer names for remote operations
     )
 }

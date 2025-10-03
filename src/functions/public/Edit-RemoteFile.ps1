@@ -108,9 +108,9 @@ function Edit-RemoteFile {
 
         $sessionOption = New-PSSessionOption -NoMachineProfile
         $sessionParams = @{
-            ComputerName    = $ComputerName
-            ErrorAction     = 'Stop'
-            SessionOption   = $sessionOption
+            ComputerName  = $ComputerName
+            ErrorAction   = 'Stop'
+            SessionOption = $sessionOption
         }
         if ($UseSSL) {
             $sessionParams.UseSSL = $true
