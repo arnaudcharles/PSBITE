@@ -14,7 +14,7 @@ Indicates whether the file is located on a remote server.
 .PARAMETER Session
 Specifies the remote session to use if the file is on a remote server.
 #>
-function Test-PSBitePermissions {
+function Test-PSBitePermission {
     [OutputType()]
     [CmdletBinding()]
     param(

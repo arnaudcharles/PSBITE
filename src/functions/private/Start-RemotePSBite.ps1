@@ -51,7 +51,7 @@ function Start-RemotePSBite {
 
         # Check remote permissions
         Write-Host "🔐 Checking remote permissions..." -ForegroundColor Yellow
-        $permissionCheck = Test-PSBitePermissions -FilePath $FilePath -IsRemote -Session $session
+        $permissionCheck = Test-PSBitePermission -FilePath $FilePath -IsRemote -Session $session
         Write-Host $permissionCheck.Message -ForegroundColor $permissionCheck.Color
 
         if (-not $permissionCheck.CanWrite) {
