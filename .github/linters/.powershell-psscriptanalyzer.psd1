@@ -4,10 +4,6 @@
             Enable         = $true
             CheckHashtable = $true
         }
-        PSAvoidLongLines                   = @{
-            Enable            = $true
-            MaximumLineLength = 150
-        }
         PSAvoidSemicolonsAsLineTerminators = @{
             Enable = $true
         }
@@ -58,7 +54,6 @@
         'PSAvoidUsingWriteHost',                                 # Because this is an interactive editor with colored UI
         'PSReviewUnusedParameter',                               # Because some parameters are used in script blocks or passed to other functions
         'PSUseUsingScopeModifierInNewRunspaces',                 # Because we want to control the scope explicitly in runspaces
-        'PSUseBOMForUnicodeEncodedFiles',                        # Because we want to use UTF8 without BOM for better compatibility
-        'PSUseShouldProcessForStateChangingFunctions'            # Because this is an interactive text editor - confirmations would break user experience
+        'PSUseBOMForUnicodeEncodedFiles'
     )
 }
