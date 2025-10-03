@@ -55,6 +55,7 @@
         'PSReviewUnusedParameter',                               # Because some parameters are used in script blocks or passed to other functions
         'PSUseUsingScopeModifierInNewRunspaces',                 # Because we want to control the scope explicitly in runspaces
         'PSUseBOMForUnicodeEncodedFile',                         # Because we want to use UTF8 without BOM for better compatibility
-        'PSAvoidUsingComputerNameHardcoded'                      # Because some functions require hardcoded computer names for remote operations
+        'PSAvoidUsingComputerNameHardcoded',                     # Because some functions require hardcoded computer names for remote operations
+        'PSProvideCommentHelp'                                   # Because not all functions need comment-based help in this context
     )
 }

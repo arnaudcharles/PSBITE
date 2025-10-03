@@ -28,7 +28,7 @@ Describe 'Start-PSBite' {
         }
 
         It 'Should have UseSSL defaulting to true' {
-            (Get-Command Start-PSBite).Parameters['UseSSL'].Attributes.Where{$_.TypeId.Name -eq 'DefaultParameterValueAttribute'} | Should -Not -BeNullOrEmpty
+            (Get-Command Start-PSBite).Parameters['UseSSL'].Attributes.Where{ $_.TypeId.Name -eq 'DefaultParameterValueAttribute' } | Should -Not -BeNullOrEmpty
         }
 
         It 'Should reject null or empty FilePath' {

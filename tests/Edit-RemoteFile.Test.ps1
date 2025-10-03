@@ -48,7 +48,7 @@ Describe 'Edit-RemoteFile' {
 
         It 'Should have default LocalTempDir' {
             $param = (Get-Command Edit-RemoteFile).Parameters['LocalTempDir']
-            $param.Attributes.Where{$_.ValueFromPipeline -eq $false} | Should -Not -BeNullOrEmpty
+            $param.Attributes.Where{ $_.ValueFromPipeline -eq $false } | Should -Not -BeNullOrEmpty
         }
 
         It 'Should reject null or empty ComputerName' {
@@ -61,7 +61,6 @@ Describe 'Edit-RemoteFile' {
     }
 
     Context 'Alias Support' {
-
         It 'Should have bite as an alias' {
             $alias = Get-Alias -Name bite -ErrorAction SilentlyContinue
             $alias.ResolvedCommandName | Should -Be 'Edit-RemoteFile'
@@ -84,7 +83,7 @@ Describe 'Edit-RemoteFile' {
             Mock New-PSSession {
                 [PSCustomObject]@{
                     ComputerName = "server01"
-                    State = "Opened"
+                    State        = "Opened"
                 }
             }
             Mock Remove-PSSession { }
