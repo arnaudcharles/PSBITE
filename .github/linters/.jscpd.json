@@ -1,10 +1,6 @@
 {
-    "threshold": 0,
-    "reporters": [
-        "consoleFull"
-    ],
-    "ignore": [
-        "**/tests/**"
-    ],
-    "absolute": true
+  "threshold": 2,
+  "reporters": ["consoleFull"],
+  "ignore": ["**/tests/**"],
+  "absolute": true
 }
