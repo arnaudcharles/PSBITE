@@ -3,9 +3,11 @@
     Reads a remote file in read-only mode, creates a local snapshot, and opens it in an editor with auto-refresh and cleanup.
 
 .DESCRIPTION
-    This function connects to a remote computer using an existing PSSession, reads the specified file in a read-only manner, and creates a local snapshot of the file.
+    This function connects to a remote computer using an existing PSSession, reads the specified file in a read-only manner,
+        and creates a local snapshot of the file.
     The local snapshot is opened in VSCode (if available) or Notepad for viewing.
-    In RO mode : The function monitors the remote file for changes and refreshes the local snapshot every 15 seconds. The local file is automatically cleaned up after the session ends.
+    In RO mode : The function monitors the remote file for changes and refreshes the local snapshot every 15 seconds.
+    The local file is automatically cleaned up after the session ends.
 
 .PARAMETER ComputerName
     The name of the remote computer.
@@ -81,8 +83,7 @@ function Read-RemoteFile {
             param($Path)
             try {
                 return Get-Content -Path $Path -Raw -ErrorAction Stop
-            }
-            catch {
+            } catch {
                 return "# File could not be read: $_`n# Error: $($_.Exception.Message)"
             }
         } -ArgumentList $RemotePath
@@ -107,8 +108,7 @@ function Read-RemoteFile {
             if ($vscodeProcess.ExitCode -eq 0) {
                 $vscodeAvailable = $true
             }
-        }
-        catch {
+        } catch {
             $vscodeAvailable = $false
         }
 
@@ -119,8 +119,7 @@ function Read-RemoteFile {
                 if (-not $Silent -and $configResult) {
                     Write-Host "✓ VSCode configured for trusted mode" -ForegroundColor Green
                 }
-            }
-            catch {
+            } catch {
                 # Continue anyway
                 Write-Debug -Message "VSCode configuration failed for trusted mode"
             }
@@ -132,8 +131,7 @@ function Read-RemoteFile {
             if (-not $Silent) {
                 Write-Host "✓ VSCode opened with read-only file" -ForegroundColor Green
             }
-        }
-        else {
+        } else {
             # Open with Notepad
             Start-Process "notepad.exe" -ArgumentList "`"$localPath`"" -WindowStyle Normal
             Start-Sleep -Seconds 1
@@ -153,8 +151,7 @@ function Read-RemoteFile {
 
         Read-FileWatcher -LocalPath $localPath -RemotePath $RemotePath -Session $Session -ComputerName $ComputerName -Silent:$Silent
 
-    }
-    finally {
+    } finally {
         # Force cleanup in read-only mode
         if ($localPath -and (Test-Path $localPath)) {
             Remove-Item $localPath -Force -ErrorAction SilentlyContinue

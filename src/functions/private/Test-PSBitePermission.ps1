@@ -14,7 +14,7 @@ Indicates whether the file is located on a remote server.
 .PARAMETER Session
 Specifies the remote session to use if the file is on a remote server.
 #>
-function Test-PSBitePermissions {
+function Test-PSBitePermission {
     [OutputType()]
     [CmdletBinding()]
     param(
@@ -40,20 +40,18 @@ function Test-PSBitePermissions {
 
                 return @{
                     CanWrite = $true
-                    Message = "✅ Write permissions OK"
-                    Color = "Green"
+                    Message  = "✅ Write permissions OK"
+                    Color    = "Green"
                 }
-            }
-            catch {
+            } catch {
                 return @{
                     CanWrite = $false
-                    Message = "❌ No write permissions for this file"
-                    Color = "Red"
+                    Message  = "❌ No write permissions for this file"
+                    Color    = "Red"
                 }
             }
         } -ArgumentList $FilePath
-    }
-    else {
+    } else {
         # Test permissions locally
         try {
             $fullPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($FilePath)
@@ -62,7 +60,7 @@ function Test-PSBitePermissions {
 
             # Ensure directory exists or can be created
             if (-not (Test-Path $directory)) {
-                New-Item -Path $directory -ItemType Directory -Force -ErrorAction Stop | Out-Null
+                $null = New-Item -Path $directory -ItemType Directory -Force -ErrorAction Stop
             }
 
             # Try to create a test file
@@ -72,15 +70,14 @@ function Test-PSBitePermissions {
 
             return @{
                 CanWrite = $true
-                Message = "✅ Write permissions OK"
-                Color = "Green"
+                Message  = "✅ Write permissions OK"
+                Color    = "Green"
             }
-        }
-        catch {
+        } catch {
             return @{
                 CanWrite = $false
-                Message = "❌ No write permissions for this file"
-                Color = "Red"
+                Message  = "❌ No write permissions for this file"
+                Color    = "Red"
             }
         }
     }

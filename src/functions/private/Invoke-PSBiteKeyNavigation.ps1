@@ -27,7 +27,8 @@ Specifies whether the current document has unsaved changes.
 Specifies the current scroll offset for the editor view.
 
 .EXAMPLE
-Invoke-PSBiteKeyNavigation -Key $key -Lines ([ref]$lines) -CursorRow ([ref]$row) -CursorCol ([ref]$col) -Mode ([ref]$mode) -Saved ([ref]$saved) -ScrollOffset ([ref]$offset)
+Invoke-PSBiteKeyNavigation -Key $key -Lines ([ref]$lines) -CursorRow ([ref]$row) -CursorCol ([ref]$col)
+    -Mode ([ref]$mode) -Saved ([ref]$saved) -ScrollOffset ([ref]$offset)
 #>
 function Invoke-PSBiteKeyNavigation {
     [OutputType()]
@@ -136,8 +137,7 @@ function Invoke-PSBiteKeyNavigation {
                     $Lines.Value[$CursorRow.Value] = $line.Substring(0, $CursorCol.Value - 1) + $line.Substring($CursorCol.Value)
                     $CursorCol.Value--
                     $Saved.Value = $false
-                }
-                elseif ($CursorRow.Value -gt 0) {
+                } elseif ($CursorRow.Value -gt 0) {
                     $currentLine = $Lines.Value[$CursorRow.Value].ToString()
                     $CursorCol.Value = $Lines.Value[$CursorRow.Value - 1].ToString().Length
                     $Lines.Value[$CursorRow.Value - 1] = $Lines.Value[$CursorRow.Value - 1].ToString() + $currentLine

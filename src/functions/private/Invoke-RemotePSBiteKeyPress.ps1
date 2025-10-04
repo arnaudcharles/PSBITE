@@ -41,7 +41,9 @@ Reference to the save state flag. Modified by reference.
 Reference to the current scroll offset for display. Modified by reference.
 
 .EXAMPLE
-$result = Invoke-RemotePSBiteKeyPress -Key $keyPress -Lines ([ref]$fileLines) -CursorRow ([ref]$row) -CursorCol ([ref]$col) -Mode ([ref]$editorMode) -LocalPath "C:\temp\file.ps1" -RemotePath "C:\Scripts\file.ps1" -Session $psSession -ComputerName "Server01" -Saved ([ref]$isSaved) -ScrollOffset ([ref]$offset)
+$result = Invoke-RemotePSBiteKeyPress -Key $keyPress -Lines ([ref]$fileLines) -CursorRow ([ref]$row) -CursorCol ([ref]$col)
+    -Mode ([ref]$editorMode)-LocalPath "C:\temp\file.ps1" -RemotePath "C:\Scripts\file.ps1" -Session $psSession
+    -ComputerName "Server01" -Saved ([ref]$isSaved) -ScrollOffset ([ref]$offset)
 
 Processes a key press event in remote editing mode, handling navigation and commands.
 
@@ -49,7 +51,9 @@ Processes a key press event in remote editing mode, handling navigation and comm
 # Command execution example
 # User presses ':' then 'w' then Enter
 # Function saves locally then syncs to remote server
-Invoke-RemotePSBiteKeyPress -Key $colonKey -Lines ([ref]$lines) -CursorRow ([ref]$row) -CursorCol ([ref]$col) -Mode ([ref]$mode) -LocalPath $local -RemotePath $remote -Session $session -ComputerName "Server01" -Saved ([ref]$saved) -ScrollOffset ([ref]$scroll)
+Invoke-RemotePSBiteKeyPress -Key $colonKey -Lines ([ref]$lines) -CursorRow ([ref]$row) -CursorCol ([ref]$col)
+    -Mode ([ref]$mode) -LocalPath $local -RemotePath $remote -Session $session
+    -ComputerName "Server01" -Saved ([ref]$saved) -ScrollOffset ([ref]$scroll)
 #>
 function Invoke-RemotePSBiteKeyPress {
     [OutputType()]
@@ -67,8 +71,7 @@ function Invoke-RemotePSBiteKeyPress {
                     Copy-Item -Path $LocalPath -Destination $RemotePath -ToSession $Session -Force
                     Write-PSBiteMessage "💾 Saved and synced to $ComputerName" "Green"
                     $Saved.Value = $true
-                }
-                catch {
+                } catch {
                     Write-PSBiteMessage "❌ Save failed: $_" "Red"
                 }
                 return "CONTINUE"
@@ -88,8 +91,7 @@ function Invoke-RemotePSBiteKeyPress {
                     Write-PSBiteMessage "💾 Saved and synced to $ComputerName" "Green"
                     $Saved.Value = $true
                     return "EXIT"
-                }
-                catch {
+                } catch {
                     Write-PSBiteMessage "❌ Save failed: $_" "Red"
                     return "CONTINUE"
                 }

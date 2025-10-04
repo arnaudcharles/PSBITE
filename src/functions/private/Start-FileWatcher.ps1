@@ -115,8 +115,7 @@ function Start-FileWatcher {
                     if ($currentRemoteWriteTime -and $remoteLastWriteTime -and $currentRemoteWriteTime -gt $remoteLastWriteTime) {
                         $remoteChanged = $true
                     }
-                }
-                catch {
+                } catch {
                     # Ignore remote check errors to avoid spam
                     Write-Debug "Remote check failed: $_"
                 }
@@ -149,17 +148,14 @@ function Start-FileWatcher {
                             return $null
                         } -ArgumentList $RemotePath
                     }
-                }
-                catch {
+                } catch {
                     Write-Host "[$timestamp] ❌ Local → Remote sync error: $_" -ForegroundColor Red
-                }
-                finally {
+                } finally {
                     $syncInProgress = $false
                     Write-Verbose "Sync operation completed"
                 }
-            }
-            # Handle remote → local sync (dual mode only) with NUL character cleanup
-            elseif ($remoteChanged -and $Dual -and -not $syncInProgress) {
+            } elseif ($remoteChanged -and $Dual -and -not $syncInProgress) {
+                # Handle remote → local sync (dual mode only) with NUL character cleanup
                 $syncInProgress = $true
                 $noActivityCount = 0
                 $waitingMessageShown = $false
@@ -185,8 +181,7 @@ function Start-FileWatcher {
                         $content = $content -replace [char]0, ''  # Remove NUL characters
                         $content | Set-Content -Path $LocalPath -Encoding UTF8 -Force
                         Write-Verbose "Wrote cleaned content to local file with UTF-8 encoding"
-                    }
-                    else {
+                    } else {
                         # Handle empty file case
                         Set-Content -Path $LocalPath -Value "" -Encoding UTF8 -Force
                         Write-Verbose "Local file was empty, created empty UTF-8 file"
@@ -202,20 +197,17 @@ function Start-FileWatcher {
                     # Update local time
                     $localLastWriteTime = (Get-Item $LocalPath).LastWriteTime
                     Write-Verbose "Updated local file last write time: $localLastWriteTime"
-                }
-                catch {
+                } catch {
                     Write-Host "[$timestamp] ❌ Remote → Local sync error: $_" -ForegroundColor Red
                     # Clean up temp file on error
                     if ($tempRemoteFile -and (Test-Path $tempRemoteFile)) {
                         Remove-Item $tempRemoteFile -Force -ErrorAction SilentlyContinue
                         Write-Verbose "Removed temporary file after error: $tempRemoteFile"
                     }
-                }
-                finally {
+                } finally {
                     $syncInProgress = $false
                 }
-            }
-            else {
+            } else {
                 $noActivityCount++
                 # Show waiting message once every 2 minutes
                 if ($noActivityCount -eq 240 -and -not $waitingMessageShown) {
@@ -234,11 +226,9 @@ function Start-FileWatcher {
 
             Start-Sleep -Milliseconds 500
         }
-    }
-    catch [System.Management.Automation.HaltCommandException] {
+    } catch [System.Management.Automation.HaltCommandException] {
         Write-Host "`n🛑 Monitoring interrupted by Ctrl+C" -ForegroundColor Yellow
-    }
-    catch {
+    } catch {
         Write-Host "`n❌ Error in monitoring: $_" -ForegroundColor Red
     }
 }

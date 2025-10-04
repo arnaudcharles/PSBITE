@@ -1,4 +1,4 @@
-﻿function Edit-RemoteFile {
+function Edit-RemoteFile {
     <#
         .SYNOPSIS
         Edit a remote file via VSCode with automatic synchronization using WinRM
@@ -49,10 +49,6 @@
         .EXAMPLE
         Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -DelTemp
         Edit and delete temporary file when finished
-
-        .EXAMPLE
-        Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Verbose
-        Edit with verbose output showing file paths
     #>
 
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
@@ -112,8 +108,8 @@
 
         $sessionOption = New-PSSessionOption -NoMachineProfile
         $sessionParams = @{
-            ComputerName = $ComputerName
-            ErrorAction = 'Stop'
+            ComputerName  = $ComputerName
+            ErrorAction   = 'Stop'
             SessionOption = $sessionOption
         }
         if ($UseSSL) {
@@ -156,23 +152,21 @@
                 $directory = Split-Path $Path -Parent
                 if ($directory -and -not (Test-Path $directory)) {
                     try {
-                        New-Item -Path $directory -ItemType Directory -Force | Out-Null
+                        $null = New-Item -Path $directory -ItemType Directory -Force
                         Write-Output "Directory created: $directory"
                         Write-Verbose "Directory did not exist and was created: $directory"
-                    }
-                    catch {
+                    } catch {
                         Write-Error "Cannot create directory: $directory - $_"
                         return $false
                     }
                 }
 
                 try {
-                    New-Item -Path $Path -ItemType File -Force | Out-Null
+                    $null = New-Item -Path $Path -ItemType File -Force
                     Write-Output "File created: $Path"
                     Write-Verbose "File did not exist and was created: $Path"
                     return $true
-                }
-                catch {
+                } catch {
                     Write-Error "Cannot create file: $Path - $_"
                     return $false
                 }
@@ -197,7 +191,7 @@
         }
 
         if (-not (Test-Path $LocalTempDir)) {
-            New-Item -Path $LocalTempDir -ItemType Directory -Force | Out-Null
+            $null = New-Item -Path $LocalTempDir -ItemType Directory -Force
         }
 
         $fileName = Split-Path $RemotePath -Leaf
@@ -223,8 +217,7 @@
             if (-not $Silent) {
                 Write-Host "✓ File copied: $localPath" -ForegroundColor Green
             }
-        }
-        catch {
+        } catch {
             # If copy fails due to locked file, switch to read-only mode
             if ($_.Exception.Message -like "*being used by another process*") {
                 if (-not $Silent) {
@@ -253,8 +246,7 @@
                 $vscodeAvailable = $true
                 Write-Verbose "VSCode detected and working"
             }
-        }
-        catch {
+        } catch {
             $vscodeAvailable = $false
         }
 
@@ -269,14 +261,12 @@
                         Write-Host "⚠️ VSCode detected but configuration failed, restricted mode possible" -ForegroundColor Yellow
                     }
                 }
-            }
-            catch {
+            } catch {
                 if (-not $Silent) {
                     Write-Host "⚠️ VSCode detected but configuration error: $_" -ForegroundColor Yellow
                 }
             }
-        }
-        else {
+        } else {
             if (-not $Silent) {
                 Write-Host "⚠️ VSCode not found, will use Notepad as fallback" -ForegroundColor Yellow
             }
@@ -325,15 +315,13 @@
         Write-Verbose "Starting file watcher with parameters: LocalPath=$localPath, RemotePath=$RemotePath, ComputerName=$ComputerName, Dual=$Dual"
         Start-FileWatcher -LocalPath $localPath -RemotePath $RemotePath -Session $session -ComputerName $ComputerName -Dual:$Dual
 
-    }
-    catch {
+    } catch {
         Write-Error "Error in Edit-RemoteFile: $_"
         if (-not $Silent) {
             Write-Host "Error details:" -ForegroundColor Red
             Write-Host $_.Exception.Message -ForegroundColor Red
         }
-    }
-    finally {
+    } finally {
         if ($session) {
             Remove-PSSession $session -ErrorAction SilentlyContinue
             if (-not $Silent) {
