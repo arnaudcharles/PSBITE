@@ -3,7 +3,8 @@
 Starts a remote PSBite session on a specified computer.
 
 .DESCRIPTION
-This function establishes a PowerShell remoting session to a target computer, verifies permissions, synchronizes a file for editing, and launches the PSBite editor with remote sync capabilities.
+This function establishes a PowerShell remoting session to a target computer, verifies permissions,
+synchronizes a file for editing, and launches the PSBite editor with remote sync capabilities.
 
 .PARAMETER FilePath
 The path to the file on the remote computer to edit.
@@ -41,7 +42,7 @@ function Start-RemotePSBite {
         # Create remote session
         $sessionParams = @{
             ComputerName = $ComputerName
-            ErrorAction = 'Stop'
+            ErrorAction  = 'Stop'
         }
         if ($UseSSL) { $sessionParams.UseSSL = $true }
 
@@ -50,7 +51,7 @@ function Start-RemotePSBite {
 
         # Check remote permissions
         Write-Host "🔐 Checking remote permissions..." -ForegroundColor Yellow
-        $permissionCheck = Test-PSBitePermissions -FilePath $FilePath -IsRemote -Session $session
+        $permissionCheck = Test-PSBitePermission -FilePath $FilePath -IsRemote -Session $session
         Write-Host $permissionCheck.Message -ForegroundColor $permissionCheck.Color
 
         if (-not $permissionCheck.CanWrite) {
@@ -64,9 +65,9 @@ function Start-RemotePSBite {
             if (-not (Test-Path $Path)) {
                 $directory = Split-Path $Path -Parent
                 if ($directory -and -not (Test-Path $directory)) {
-                    New-Item -Path $directory -ItemType Directory -Force | Out-Null
+                    $null = New-Item -Path $directory -ItemType Directory -Force
                 }
-                New-Item -Path $Path -ItemType File -Force | Out-Null
+                $null = New-Item -Path $Path -ItemType File -Force
                 return $false
             }
             return $true
@@ -81,7 +82,7 @@ function Start-RemotePSBite {
         # Create local temp file
         $tempDir = "$env:TEMP\PSBite"
         if (-not (Test-Path $tempDir)) {
-            New-Item -Path $tempDir -ItemType Directory -Force | Out-Null
+            $null = New-Item -Path $tempDir -ItemType Directory -Force
         }
 
         $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
@@ -95,12 +96,9 @@ function Start-RemotePSBite {
 
         # Start PSBITE with remote sync
         Start-RemotePSBiteEditor -LocalPath $localTempFile -RemotePath $FilePath -Session $session -ComputerName $ComputerName -AutoSave:$AutoSave
-
-    }
-    catch {
+    } catch {
         Write-Error "Error in Remote PSBITE: $_"
-    }
-    finally {
+    } finally {
         if ($session) {
             Remove-PSSession $session -ErrorAction SilentlyContinue
         }

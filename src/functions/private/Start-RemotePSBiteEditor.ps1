@@ -32,11 +32,9 @@ function Start-RemotePSBiteEditor {
     $content = Get-Content $LocalPath
     if ($null -eq $content) {
         $lines = [string[]]@(" ")
-    }
-    elseif ($content -is [string]) {
+    } elseif ($content -is [string]) {
         $lines = [string[]]@($content)
-    }
-    else {
+    } else {
         $lines = [string[]]$content
     }
 
@@ -63,13 +61,11 @@ function Start-RemotePSBiteEditor {
                         $lastSaveTime = Get-Date
                         Write-PSBiteMessage "💾 AutoSave: File saved and synced (5 min elapsed)" "Green"
                         Start-Sleep -Milliseconds 1000
-                    }
-                    catch {
+                    } catch {
                         Write-PSBiteMessage "❌ AutoSave failed: $_" "Red"
                         Start-Sleep -Milliseconds 1000
                     }
-                }
-                else {
+                } else {
                     $lastSaveTime = Get-Date
                 }
             }
@@ -80,8 +76,7 @@ function Start-RemotePSBiteEditor {
                 break
             }
         }
-    }
-    finally {
+    } finally {
         [Console]::Clear()
     }
 }

@@ -49,8 +49,7 @@ function Write-PSBiteEditor {
     # Adjust scroll if cursor is out of view
     if ($CursorRow -lt $ScrollOffset.Value) {
         $ScrollOffset.Value = $CursorRow
-    }
-    elseif ($CursorRow -ge ($ScrollOffset.Value + $maxContentLines)) {
+    } elseif ($CursorRow -ge ($ScrollOffset.Value + $maxContentLines)) {
         $ScrollOffset.Value = $CursorRow - $maxContentLines + 1
     }
 
@@ -99,16 +98,14 @@ function Write-PSBiteEditor {
                         Write-Host ""
                     }
                 }
-            }
-            else {
+            } else {
                 Write-Host $line -NoNewline
                 Write-Host " " -BackgroundColor Yellow -NoNewline
                 if ($i -ne ($maxContentLines - 1)) {
                     Write-Host ""
                 }
             }
-        }
-        else {
+        } else {
             $lineContent = $Lines[$lineIndex].ToString()
             if ($i -eq ($maxContentLines - 1)) {
                 Write-Host $lineContent -NoNewline
@@ -134,8 +131,7 @@ function Write-PSBiteEditor {
         $commands = "[i] Insert | [:w] Save | [:q] Quit | [:q!] Force Quit | [:wq] Save&Quit"
         if ($IsRemote) { $commands += " | Remote: Auto-sync" }
         Write-Host "📋 NORMAL MODE ${saveIndicator} ${remoteIndicator}: $commands" -NoNewline -ForegroundColor $modeColor
-    }
-    else {
+    } else {
         Write-Host "📋 INSERT MODE ${saveIndicator} ${remoteIndicator}: [Esc] Normal Mode | [Enter] New Line | [Backspace] Delete" -NoNewline -ForegroundColor $modeColor
     }
 

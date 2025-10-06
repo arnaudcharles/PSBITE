@@ -3,7 +3,9 @@
 Monitors a remote file for changes and updates a local copy at regular intervals.
 
 .DESCRIPTION
-Read-FileWatcher periodically reads the content of a remote file via a PowerShell session and updates a local file with the latest content. The function checks for user interruption (Ctrl+E), local file deletion, and handles errors gracefully. It is intended for interactive, read-only monitoring scenarios.
+Read-FileWatcher periodically reads the content of a remote file via a PowerShell session and updates a local file with the latest content.
+The function checks for user interruption (Ctrl+E), local file deletion, and handles errors gracefully.
+It is intended for interactive, read-only monitoring scenarios.
 
 .PARAMETER LocalPath
 The path to the local file to update with the remote file's content.
@@ -85,8 +87,7 @@ function Read-FileWatcher {
                         try {
                             Write-Verbose "Reading remote file content from $Path"
                             return Get-Content -Path $Path -Raw -ErrorAction Stop
-                        }
-                        catch {
+                        } catch {
                             return "# File could not be read: $_`n# Error: $($_.Exception.Message)"
                         }
                     } -ArgumentList $RemotePath
@@ -100,8 +101,7 @@ function Read-FileWatcher {
                     Write-Host "`r[$timestamp] ✅ Last refresh: $ComputerName                    " -ForegroundColor Green -NoNewline
 
                     $refreshCount = 0
-                }
-                catch {
+                } catch {
                     $timestamp = Get-Date -Format "HH:mm:ss"
                     Write-Host "`r[$timestamp] ❌ Refresh error                              " -ForegroundColor Red -NoNewline
                     $refreshCount = 0
@@ -110,11 +110,9 @@ function Read-FileWatcher {
 
             Start-Sleep -Milliseconds 500
         }
-    }
-    catch [System.Management.Automation.HaltCommandException] {
+    } catch [System.Management.Automation.HaltCommandException] {
         Write-Host "`n🛑 Read-only monitoring interrupted by Ctrl+C" -ForegroundColor Yellow
-    }
-    catch {
+    } catch {
         Write-Host "`n❌ Error in read-only monitoring: $_" -ForegroundColor Red
     }
 }

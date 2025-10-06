@@ -27,7 +27,7 @@ function Start-LocalPSBite {
 
     # Check permissions first
     Write-Host "🔐 Checking permissions..." -ForegroundColor Yellow
-    $permissionCheck = Test-PSBitePermissions -FilePath $FilePath
+    $permissionCheck = Test-PSBitePermission -FilePath $FilePath
     Write-Host $permissionCheck.Message -ForegroundColor $permissionCheck.Color
 
     if (-not $permissionCheck.CanWrite) {
@@ -85,8 +85,7 @@ function Start-LocalPSBite {
                 break
             }
         }
-    }
-    finally {
+    } finally {
         [Console]::Clear()
     }
 }
