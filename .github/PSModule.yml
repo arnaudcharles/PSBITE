@@ -4,4 +4,4 @@
 
 Test:
   CodeCoverage:
-    PercentTarget: 0
+    PercentTarget: 2
