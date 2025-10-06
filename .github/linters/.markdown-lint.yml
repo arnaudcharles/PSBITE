@@ -13,6 +13,8 @@ MD007:
   indent: 2                   # Unordered list indentation
 MD013:
   line_length: 808            # Line length
+MD024:
+  siblings_only: true         # Allow duplicate headings in different sections
 MD026:
   punctuation: ".,;:!。，；:"  # List of not allowed
 MD029: false                  # Ordered list item prefix
