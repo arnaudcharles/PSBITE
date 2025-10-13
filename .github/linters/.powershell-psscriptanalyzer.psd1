@@ -46,7 +46,7 @@
         }
     }
     ExcludeRules = @(
-        'PSMissingModuleManifestField', # This rule is not applicable until the module is built.
+        'PSMissingModuleManifestField',                          # This rule is not applicable until the module is built.
         'PSUseToExportFieldsInManifest',
         'PSUseShouldProcessForStateChangingFunctions',           # Because this is an interactive text editor - confirmations would break user experience
         'PSUseOutputTypeCorrectly',                              # Because sometime we need to return predefined objects
