@@ -1,17 +1,22 @@
-<#
-.SYNOPSIS
-Starts a local instance of the PSBite editor.
-
-.DESCRIPTION
-Starts a local instance of the PSBite editor, allowing the user to edit files in a terminal-based interface.
-
-.PARAMETER FilePath
-Specifies the path to the file to edit.
-
-.EXAMPLE
-Start-LocalPSBite -FilePath "C:\path\to\file.txt"
-#>
 function Start-LocalPSBite {
+    <#
+    .SYNOPSIS
+        Starts a local instance of the PSBite editor.
+
+    .DESCRIPTION
+        Starts a local instance of the PSBite editor, allowing the user to edit files in a terminal-based interface.
+
+    .PARAMETER FilePath
+        Specifies the path to the file to edit.
+
+    .EXAMPLE
+        Start-LocalPSBite -FilePath "C:\path\to\file.txt"
+
+    .NOTES
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
+    #>
     [OutputType()]
     [CmdletBinding()]
     param(

@@ -1,39 +1,42 @@
-<#
-.SYNOPSIS
-    Reads a remote file in read-only mode, creates a local snapshot, and opens it in an editor with auto-refresh and cleanup.
-
-.DESCRIPTION
-    This function connects to a remote computer using an existing PSSession, reads the specified file in a read-only manner,
-        and creates a local snapshot of the file.
-    The local snapshot is opened in VSCode (if available) or Notepad for viewing.
-    In RO mode : The function monitors the remote file for changes and refreshes the local snapshot every 15 seconds.
-    The local file is automatically cleaned up after the session ends.
-
-.PARAMETER ComputerName
-    The name of the remote computer.
-
-.PARAMETER RemotePath
-    The full path to the remote file to read.
-
-.PARAMETER LocalTempDir
-    (Optional) The local directory where the temporary read-only snapshot will be stored.
-
-.PARAMETER Session
-    The PSSession object for the remote computer.
-
-.PARAMETER Silent
-    If specified, suppresses interactive output.
-
-.PARAMETER Verbose
-    If specified, enables verbose logging for debugging purposes.
-
-.EXAMPLE
-    Read-RemoteFile -ComputerName "server01" -RemotePath "C:\Logs\app.log" -LocalTempDir "C:\Temp" -Session $session
-
-.NOTES
-    This function is intended for read-only access to remote files using Edit-RemoteFile.
-#>
 function Read-RemoteFile {
+    <#
+    .SYNOPSIS
+        Reads a remote file in read-only mode, creates a local snapshot, and opens it in an editor with auto-refresh and cleanup.
+
+    .DESCRIPTION
+        This function connects to a remote computer using an existing PSSession, reads the specified file in a read-only manner,
+            and creates a local snapshot of the file.
+        The local snapshot is opened in VSCode (if available) or Notepad for viewing.
+        In RO mode : The function monitors the remote file for changes and refreshes the local snapshot every 15 seconds.
+        The local file is automatically cleaned up after the session ends.
+
+    .PARAMETER ComputerName
+        The name of the remote computer.
+
+    .PARAMETER RemotePath
+        The full path to the remote file to read.
+
+    .PARAMETER LocalTempDir
+        (Optional) The local directory where the temporary read-only snapshot will be stored.
+
+    .PARAMETER Session
+        The PSSession object for the remote computer.
+
+    .PARAMETER Silent
+        If specified, suppresses interactive output.
+
+    .PARAMETER Verbose
+        If specified, enables verbose logging for debugging purposes.
+
+    .EXAMPLE
+        Read-RemoteFile -ComputerName "server01" -RemotePath "C:\Logs\app.log" -LocalTempDir "C:\Temp" -Session $session
+
+    .NOTES
+        This function is intended for read-only access to remote files using Edit-RemoteFile.
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
+    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         "PSUseShouldProcessForStateChangingFunctions", "", Justification = "Read-only file viewer - no state changes"
     )]

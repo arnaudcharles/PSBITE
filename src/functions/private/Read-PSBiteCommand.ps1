@@ -1,38 +1,43 @@
-<#
-.SYNOPSIS
-Reads a VIM-style command from user input in the PSBite editor.
-
-.DESCRIPTION
-Displays a command prompt (":") at the bottom of the console and reads user input
-character by character to build a VIM-style command. Supports common input operations
-like backspace for correction and escape to cancel. Used for PSBite editor commands
-such as :w (save), :q (quit), :wq (save and quit), etc.
-
-.PARAMETER None
-This function takes no parameters.
-
-.EXAMPLE
-$command = Read-PSBiteCommand
-# User types ":w" and presses Enter
-# Returns "w"
-
-Reads a save command from the user.
-
-.EXAMPLE
-$command = Read-PSBiteCommand
-# User types ":wq" and presses Enter
-# Returns "wq"
-
-Reads a save-and-quit command from the user.
-
-.EXAMPLE
-$command = Read-PSBiteCommand
-# User presses Escape
-# Returns ""
-
-Returns empty string when user cancels with Escape.
-#>
 function Read-PSBiteCommand {
+    <#
+    .SYNOPSIS
+        Reads a VIM-style command from user input in the PSBite editor.
+
+    .DESCRIPTION
+        Displays a command prompt (":") at the bottom of the console and reads user input
+        character by character to build a VIM-style command. Supports common input operations
+        like backspace for correction and escape to cancel. Used for PSBite editor commands
+        such as :w (save), :q (quit), :wq (save and quit), etc.
+
+    .PARAMETER None
+        This function takes no parameters.
+
+    .EXAMPLE
+        $command = Read-PSBiteCommand
+        # User types ":w" and presses Enter
+        # Returns "w"
+
+        Reads a save command from the user.
+
+    .EXAMPLE
+        $command = Read-PSBiteCommand
+        # User types ":wq" and presses Enter
+        # Returns "wq"
+
+        Reads a save-and-quit command from the user.
+
+    .EXAMPLE
+        $command = Read-PSBiteCommand
+        # User presses Escape
+        # Returns ""
+
+        Returns empty string when user cancels with Escape.
+
+    .NOTES
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
+    #>
     [OutputType()]
     [CmdletBinding()]
     param()

@@ -1,20 +1,25 @@
-<#
-.SYNOPSIS
-Test read/write permissions for PSBITE file editing (local or remote).
-
-.DESCRIPTION
-Tests if the current user has the necessary read/write permissions for the specified file, either locally or on a remote server via a PowerShell session.
-
-.PARAMETER FilePath
-Specifies the path to the file to test for read/write permissions.
-
-.PARAMETER IsRemote
-Indicates whether the file is located on a remote server.
-
-.PARAMETER Session
-Specifies the remote session to use if the file is on a remote server.
-#>
 function Test-PSBitePermission {
+    <#
+    .SYNOPSIS
+        Test read/write permissions for PSBITE file editing (local or remote).
+
+    .DESCRIPTION
+        Tests if the current user has the necessary read/write permissions for the specified file, either locally or on a remote server via a PowerShell session.
+
+    .PARAMETER FilePath
+        Specifies the path to the file to test for read/write permissions.
+
+    .PARAMETER IsRemote
+        Indicates whether the file is located on a remote server.
+
+    .PARAMETER Session
+        Specifies the remote session to use if the file is on a remote server.
+
+    .NOTES
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
+    #>
     [OutputType()]
     [CmdletBinding()]
     param(

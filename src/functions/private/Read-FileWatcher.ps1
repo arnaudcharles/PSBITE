@@ -1,36 +1,39 @@
-<#
-.SYNOPSIS
-Monitors a remote file for changes and updates a local copy at regular intervals.
-
-.DESCRIPTION
-Read-FileWatcher periodically reads the content of a remote file via a PowerShell session and updates a local file with the latest content.
-The function checks for user interruption (Ctrl+E), local file deletion, and handles errors gracefully.
-It is intended for interactive, read-only monitoring scenarios.
-
-.PARAMETER LocalPath
-The path to the local file to update with the remote file's content.
-
-.PARAMETER RemotePath
-The path to the remote file to monitor and read.
-
-.PARAMETER Session
-The PSSession object used to connect to the remote computer.
-
-.PARAMETER ComputerName
-The name of the remote computer being monitored.
-
-.PARAMETER Silent
-If specified, suppresses interactive output (not currently implemented).
-
-.EXAMPLE
-Read-FileWatcher -LocalPath "C:\Temp\log.txt" -RemotePath "C:\Logs\log.txt" -Session $session -ComputerName "Server01"
-
-Monitors the remote file 'C:\Logs\log.txt' on 'Server01' and updates the local file 'C:\Temp\log.txt' every 15 seconds.
-
-.NOTES
-    This function is intended for read-only access to remote files using Edit-RemoteFile.
-#>
 function Read-FileWatcher {
+    <#
+    .SYNOPSIS
+        Monitors a remote file for changes and updates a local copy at regular intervals.
+
+    .DESCRIPTION
+        Read-FileWatcher periodically reads the content of a remote file via a PowerShell session and updates a local file with the latest content.
+        The function checks for user interruption (Ctrl+E), local file deletion, and handles errors gracefully.
+        It is intended for interactive, read-only monitoring scenarios.
+
+    .PARAMETER LocalPath
+        The path to the local file to update with the remote file's content.
+
+    .PARAMETER RemotePath
+        The path to the remote file to monitor and read.
+
+    .PARAMETER Session
+        The PSSession object used to connect to the remote computer.
+
+    .PARAMETER ComputerName
+        The name of the remote computer being monitored.
+
+    .PARAMETER Silent
+        If specified, suppresses interactive output (not currently implemented).
+
+    .EXAMPLE
+        Read-FileWatcher -LocalPath "C:\Temp\log.txt" -RemotePath "C:\Logs\log.txt" -Session $session -ComputerName "Server01"
+
+        Monitors the remote file 'C:\Logs\log.txt' on 'Server01' and updates the local file 'C:\Temp\log.txt' every 15 seconds.
+
+    .NOTES
+        This function is intended for read-only access to remote files using Edit-RemoteFile.
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
+    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         "PSUseShouldProcessForStateChangingFunctions", "", Justification = "Read-only file monitoring - no state changes"
     )]
