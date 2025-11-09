@@ -1,36 +1,41 @@
-<#
-.SYNOPSIS
-Handle key presses for PSBite editor, including VIM-style commands.
-
-.DESCRIPTION
-Handles key press events for the PSBite editor, including VIM-style commands.
-
-.PARAMETER Key
-Specifies the key press event to process.
-
-.PARAMETER Lines
-Specifies the lines of text in the editor.
-
-.PARAMETER CursorRow
-Specifies the current row of the cursor.
-
-.PARAMETER CursorCol
-Specifies the current column of the cursor.
-
-.PARAMETER Mode
-Specifies the current mode of the editor (e.g., NORMAL, INSERT).
-
-.PARAMETER Saved
-Specifies whether the current document has unsaved changes.
-
-.PARAMETER ScrollOffset
-Specifies the current scroll offset for the editor view.
-
-.EXAMPLE
-Invoke-PSBiteKeyNavigation -Key $key -Lines ([ref]$lines) -CursorRow ([ref]$row) -CursorCol ([ref]$col)
-    -Mode ([ref]$mode) -Saved ([ref]$saved) -ScrollOffset ([ref]$offset)
-#>
 function Invoke-PSBiteKeyNavigation {
+    <#
+    .SYNOPSIS
+        Handle key presses for PSBite editor, including VIM-style commands.
+
+    .DESCRIPTION
+        Handles key press events for the PSBite editor, including VIM-style commands.
+
+    .PARAMETER Key
+        Specifies the key press event to process.
+
+    .PARAMETER Lines
+        Specifies the lines of text in the editor.
+
+    .PARAMETER CursorRow
+        Specifies the current row of the cursor.
+
+    .PARAMETER CursorCol
+        Specifies the current column of the cursor.
+
+    .PARAMETER Mode
+        Specifies the current mode of the editor (e.g., NORMAL, INSERT).
+
+    .PARAMETER Saved
+        Specifies whether the current document has unsaved changes.
+
+    .PARAMETER ScrollOffset
+        Specifies the current scroll offset for the editor view.
+
+    .EXAMPLE
+        Invoke-PSBiteKeyNavigation -Key $key -Lines ([ref]$lines) -CursorRow ([ref]$row) -CursorCol ([ref]$col)
+        -Mode ([ref]$mode) -Saved ([ref]$saved) -ScrollOffset ([ref]$offset)
+
+    .NOTES
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
+    #>
     [OutputType()]
     [CmdletBinding()]
     param($Key, [ref]$Lines, [ref]$CursorRow, [ref]$CursorCol, [ref]$Mode, [ref]$Saved, [ref]$ScrollOffset)

@@ -1,27 +1,32 @@
-<#
-.SYNOPSIS
-Starts a remote PSBite session on a specified computer.
-
-.DESCRIPTION
-This function establishes a PowerShell remoting session to a target computer, verifies permissions,
-synchronizes a file for editing, and launches the PSBite editor with remote sync capabilities.
-
-.PARAMETER FilePath
-The path to the file on the remote computer to edit.
-
-.PARAMETER ComputerName
-The name or IP address of the remote computer.
-
-.PARAMETER UseSSL
-Specifies whether to use SSL for the remote session.
-
-.PARAMETER AutoSave
-If set, automatically saves changes to the remote file.
-
-.EXAMPLE
-Start-RemotePSBite -FilePath "C:\Scripts\MyScript.ps1" -ComputerName "Server01" -UseSSL $true -AutoSave
-#>
 function Start-RemotePSBite {
+    <#
+    .SYNOPSIS
+        Starts a remote PSBite session on a specified computer.
+
+    .DESCRIPTION
+        This function establishes a PowerShell remoting session to a target computer, verifies permissions,
+        synchronizes a file for editing, and launches the PSBite editor with remote sync capabilities.
+
+    .PARAMETER FilePath
+        The path to the file on the remote computer to edit.
+
+    .PARAMETER ComputerName
+        The name or IP address of the remote computer.
+
+    .PARAMETER UseSSL
+        Specifies whether to use SSL for the remote session.
+
+    .PARAMETER AutoSave
+        If set, automatically saves changes to the remote file.
+
+    .EXAMPLE
+        Start-RemotePSBite -FilePath "C:\Scripts\MyScript.ps1" -ComputerName "Server01" -UseSSL $true -AutoSave
+
+    .NOTES
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
+    #>
     [OutputType()]
     [CmdletBinding()]
     param(

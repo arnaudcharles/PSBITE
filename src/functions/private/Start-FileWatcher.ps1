@@ -1,34 +1,37 @@
-<#
-.SYNOPSIS
-    Monitors a local file for changes and synchronizes it with a remote file in real-time using a PSSession.
-
-.DESCRIPTION
-    This function monitors a local file for changes and synchronizes it with a remote file in real-time using a PSSession.
-    It supports dual mode, allowing for monitoring of both local and remote file changes.
-
-.PARAMETER LocalPath
-    The full path to the local file to monitor.
-
-.PARAMETER RemotePath
-    The full path to the remote file to synchronize with.
-
-.PARAMETER Session
-    The PSSession object for the remote computer.
-
-.PARAMETER ComputerName
-    The name of the remote computer.
-
-.PARAMETER Dual
-    If specified, enables dual mode to monitor both local and remote changes.
-
-.EXAMPLE
-    Start-FileWatcher -LocalPath "C:\Temp\local.txt" -RemotePath "C:\Temp\remote.txt" -Session $session -ComputerName "server01" -Dual
-
-.NOTES
-    This function is intended for read-only access to remote files using Edit-RemoteFile.
-
-#>
 function Start-FileWatcher {
+    <#
+    .SYNOPSIS
+        Monitors a local file for changes and synchronizes it with a remote file in real-time using a PSSession.
+
+    .DESCRIPTION
+        This function monitors a local file for changes and synchronizes it with a remote file in real-time using a PSSession.
+        It supports dual mode, allowing for monitoring of both local and remote file changes.
+
+    .PARAMETER LocalPath
+        The full path to the local file to monitor.
+
+    .PARAMETER RemotePath
+        The full path to the remote file to synchronize with.
+
+    .PARAMETER Session
+        The PSSession object for the remote computer.
+
+    .PARAMETER ComputerName
+        The name of the remote computer.
+
+    .PARAMETER Dual
+        If specified, enables dual mode to monitor both local and remote changes.
+
+    .EXAMPLE
+        Start-FileWatcher -LocalPath "C:\Temp\local.txt" -RemotePath "C:\Temp\remote.txt" -Session $session -ComputerName "server01" -Dual
+
+    .NOTES
+        This function is intended for read-only access to remote files using Edit-RemoteFile.
+
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
+    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         "PSUseShouldProcessForStateChangingFunctions", "", Justification = "File monitoring function - no user confirmation needed for real-time sync"
     )]

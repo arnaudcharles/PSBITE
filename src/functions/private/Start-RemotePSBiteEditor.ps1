@@ -1,20 +1,22 @@
-<#
-.SYNOPSIS
-Briefly describes the main functionality of the script or function.
-
-.DESCRIPTION
-Provides a detailed explanation of the purpose, operation, and usage context of the script or function.
-
-.PARAMETER <ParameterName>
-Describes the role and usage of each parameter.
-
-.EXAMPLE
-Shows an example of how to use the script or function.
-
-.NOTES
-Adds additional information, such as the author, creation date, or important remarks.
-#>
 function Start-RemotePSBiteEditor {
+    <#
+    .SYNOPSIS
+        Briefly describes the main functionality of the script or function.
+
+    .DESCRIPTION
+        Provides a detailed explanation of the purpose, operation, and usage context of the script or function.
+
+    .PARAMETER <ParameterName>
+        Describes the role and usage of each parameter.
+
+    .EXAMPLE
+        Shows an example of how to use the script or function.
+
+    .NOTES
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
+    #>
     [OutputType()]
     [CmdletBinding()]
     param(

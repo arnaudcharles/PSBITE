@@ -1,54 +1,59 @@
 function Edit-RemoteFile {
     <#
-        .SYNOPSIS
+    .SYNOPSIS
         Edit a remote file via VSCode with automatic synchronization using WinRM
 
-        .DESCRIPTION
+    .DESCRIPTION
         Allows editing files on remote Windows servers via WinRM by synchronizing them automatically with VSCode.
         Supports both unidirectional (local to remote) and bidirectional synchronization.
         Falls back to Notepad if VSCode is not available.
         If files like logs are locked, switches to read-only mode with periodic refresh, 15s by default.
         In RO mode, -DelTemp parameter is set up by default, save and sync is disabled.
 
-        .PARAMETER ComputerName
+    .PARAMETER ComputerName
         Remote server name or FQDN
 
-        .PARAMETER RemotePath
+    .PARAMETER RemotePath
         Full path to the file on the remote server
 
-        .PARAMETER LocalTempDir
+    .PARAMETER LocalTempDir
         Local temporary directory for file synchronization (default: $env:TEMP\RemoteEdit)
 
-        .PARAMETER UseSSL
+    .PARAMETER UseSSL
         Use SSL for WinRM connection (default: true)
 
-        .PARAMETER DelTemp
+    .PARAMETER DelTemp
         Delete temporary file when finished (default: false - file is preserved)
 
-        .PARAMETER Dual
+    .PARAMETER Dual
         Enable bidirectional synchronization - monitors both local and remote file changes
 
-        .PARAMETER Silent
+    .PARAMETER Silent
         Minimal output - show only essential connection and monitoring messages
 
-        .PARAMETER Verbose
+    .PARAMETER Verbose
         Enable verbose output for debugging and detailed information. SO AJ :-)
 
-        .EXAMPLE
+    .EXAMPLE
         Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1"
         Edit a remote PowerShell script with SSL and unidirectional sync
 
-        .EXAMPLE
+    .EXAMPLE
         Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Dual
         Edit with bidirectional synchronization (remote changes are pulled to local)
 
-        .EXAMPLE
+    .EXAMPLE
         Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Silent
         Edit with minimal output showing only essential messages
 
-        .EXAMPLE
+    .EXAMPLE
         Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -DelTemp
         Edit and delete temporary file when finished
+
+    .NOTES
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
     #>
 
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(

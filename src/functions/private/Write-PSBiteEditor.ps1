@@ -1,38 +1,43 @@
-<#
-.SYNOPSIS
-Render the PSBite text editor interface in the console.
-
-.DESCRIPTION
-Renders the PSBite text editor interface in the console, displaying the current file content, cursor position, and available commands.
-
-.PARAMETER Lines
-Specifies the lines of text to display in the editor.
-
-.PARAMETER CursorRow
-Specifies the current row of the cursor.
-
-.PARAMETER CursorCol
-Specifies the current column of the cursor.
-
-.PARAMETER Mode
-Specifies the current mode of the editor (e.g., NORMAL, INSERT).
-
-.PARAMETER FilePath
-Specifies the path to the file being edited.
-
-.PARAMETER Saved
-Indicates whether the current changes have been saved.
-
-.PARAMETER IsRemote
-Indicates whether the editor is running in a remote session.
-
-.PARAMETER ScrollOffset
-Specifies the current scroll offset for the editor view.
-
-.EXAMPLE
-Write-PSBiteEditor -Lines $lines -CursorRow $cursorRow -CursorCol $cursorCol -Mode $mode -FilePath $filePath -Saved $saved -IsRemote $false -ScrollOffset ([ref]$scrollOffset)
-#>
 function Write-PSBiteEditor {
+    <#
+    .SYNOPSIS
+        Render the PSBite text editor interface in the console.
+
+    .DESCRIPTION
+        Renders the PSBite text editor interface in the console, displaying the current file content, cursor position, and available commands.
+
+    .PARAMETER Lines
+        Specifies the lines of text to display in the editor.
+
+    .PARAMETER CursorRow
+        Specifies the current row of the cursor.
+
+    .PARAMETER CursorCol
+        Specifies the current column of the cursor.
+
+    .PARAMETER Mode
+        Specifies the current mode of the editor (e.g., NORMAL, INSERT).
+
+    .PARAMETER FilePath
+        Specifies the path to the file being edited.
+
+    .PARAMETER Saved
+        Indicates whether the current changes have been saved.
+
+    .PARAMETER IsRemote
+        Indicates whether the editor is running in a remote session.
+
+    .PARAMETER ScrollOffset
+        Specifies the current scroll offset for the editor view.
+
+    .EXAMPLE
+        Write-PSBiteEditor -Lines $lines -CursorRow $cursorRow -CursorCol $cursorCol -Mode $mode -FilePath $filePath -Saved $saved -IsRemote $false -ScrollOffset ([ref]$scrollOffset)
+
+    .NOTES
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
+    #>
     [OutputType()]
     [CmdletBinding()]
     param($Lines, $CursorRow, $CursorCol, $Mode, $FilePath, $Saved, $IsRemote, [ref]$ScrollOffset)

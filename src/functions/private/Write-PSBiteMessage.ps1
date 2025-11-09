@@ -1,21 +1,24 @@
-<#
-.SYNOPSIS
-Describes the purpose and functionality of the selected code.
-
-.DESCRIPTION
-Provides a detailed explanation of what the code does, its workflow, and any important implementation details.
-
-.PARAMETER <ParameterName>
-Describes each parameter used in the code, including its type and expected values.
-
-.EXAMPLE
-Shows an example of how to use the code or function.
-
-.NOTES
-Additional information, such as author, date, or references.
-
-#>
 function Write-PSBiteMessage {
+    <#
+    .SYNOPSIS
+        Describes the purpose and functionality of the selected code.
+
+    .DESCRIPTION
+        Provides a detailed explanation of what the code does, its workflow, and any important implementation details.
+
+    .PARAMETER <ParameterName>
+        Describes each parameter used in the code, including its type and expected values.
+
+    .EXAMPLE
+        Shows an example of how to use the code or function.
+
+    .NOTES
+        Additional information, such as author, date, or references.
+
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
+    #>
     [OutputType()]
     [CmdletBinding()]
     param(

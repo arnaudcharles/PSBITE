@@ -1,30 +1,30 @@
 function Start-PSBite {
     <#
-        .SYNOPSIS
+    .SYNOPSIS
         Start the PSBITE text editor for local or remote file editing using WinRM.
 
-        .DESCRIPTION
+    .DESCRIPTION
         PSBITE stand for "PowerShell Buffer Insert Text Editor", it's a VIM-like text editor that supports both local and remote file editing.
         It provides a familiar VIM interface with NORMAL and INSERT modes, character operations, and real-time remote synchronization.
 
-        .PARAMETER FilePath
+    .PARAMETER FilePath
         Path to the file to edit (local or remote). Can be relative or absolute for local but must be absolute when using the remote.
 
-        .PARAMETER ComputerName
+    .PARAMETER ComputerName
         Remote computer name for remote editing (optional)
 
-        .PARAMETER UseSSL
+    .PARAMETER UseSSL
         Use SSL for remote connection (default: true)
 
-        .EXAMPLE
+    .EXAMPLE
         Start-PSBite -FilePath "C:\test.txt"
         Edit a local file
 
-        .EXAMPLE
+    .EXAMPLE
         Start-PSBite -FilePath "C:\scripts\remote.ps1" -ComputerName "server01"
         Edit a remote file with real-time synchronization
 
-        .NOTES
+    .NOTES
         Controls:
         - i       : Enter INSERT mode
         - Esc     : Enter NORMAL mode
@@ -35,6 +35,10 @@ function Start-PSBite {
         - :q      : Quit
         - :q!     : Quit without saving
         - :wq     : Save and quit
+
+        Author: Arnaud Charles
+        GitHub: https://github.com/arnaudcharles
+        LinkedIn: https://www.linkedin.com/in/arnaudcharles
     #>
 
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
