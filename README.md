@@ -213,6 +213,12 @@ It was like a challenge after attemping [PSConf](https://psconf.eu/), I wanted t
 
 Then Edit-RemoteFile came alive in parallel for the same reasons, mainly for internal usage but finally integrated to PSBite because it's working not the same way and can also benefit to other users.
 
+
+## 🔗 Functions dependencies
+
+See [Function Dependencies](DEPENDENCIES.md) to understand link between each functions.
+
+
 ## 🔧 Contributing
 
 Coder or not, you can contribute to the project! We welcome all contributions.

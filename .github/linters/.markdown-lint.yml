@@ -22,6 +22,7 @@ MD033: false                  # Allow inline HTML
 MD036: false                  # Emphasis used instead of a heading
 MD034: false                  # Bare URL used
 MD041: false                  # First line in file should be a top level heading
+MD060: false                  # Disallow lazy URL references
 
 #################
 # Rules by tags #
