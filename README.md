@@ -2,7 +2,7 @@
 
 # PSBITE
 
-**PSBITE** stand for "**P**owerShell **B**uffer **I**nsert **T**ext **E**ditor".
+**PSBITE** stand for "**P**ower**S**hell **B**uffer **I**nsert **T**ext **E**ditor".
 </div>
 
 It's a VIM-like text editor that supports both local and remote file editing.
