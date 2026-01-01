@@ -236,7 +236,7 @@ You can either help by picking up an existing issue or submit a new one if you h
 
 ## 📣 Ref
 
-Thanks to [Marius](https://github.com/MariusStorhaug) for his job on [PsModule Framework](https://psmodule.io/ ) used to built the skeleton of PSWEE.
+Thanks to [Marius](https://github.com/MariusStorhaug) for his job on [PsModule Framework](https://psmodule.io/ ) used to built the skeleton of PSBITE.
 
 Thanks to my colleagues who challenged me, helped me publish it and using it daily.
 
