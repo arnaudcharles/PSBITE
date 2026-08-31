@@ -24,7 +24,10 @@ function Start-LocalPSBite {
         [string]$FilePath,
 
         [Parameter()]
-        [switch]$AutoSave
+        [switch]$AutoSave,
+
+        [Parameter(HelpMessage = "1-based line number to place the cursor on when the editor opens")]
+        [int]$InitialLine = 1
     )
 
     # Resolve full path
@@ -64,6 +67,9 @@ function Start-LocalPSBite {
         $lines = [string[]]@(" ")
         $saved = $false
     }
+
+    # Place the cursor on the requested line, clamped to the file's actual bounds
+    $cursorRow = [Math]::Min([Math]::Max(0, $InitialLine - 1), $lines.Count - 1)
 
     try {
         while ($true) {

@@ -13,8 +13,6 @@ It provides a familiar VIM interface with NORMAL and INSERT modes, character ope
 
 <div align="center">
 
-[![starline](https://starlines.qoo.monster/assets/arnaudcharles/psbite)](https://github.com/qoomon/starline)
-
 ![PowerShell](https://img.shields.io/badge/PS%20Module-207bcd)
 ![PowerShell](https://img.shields.io/badge/PowerShell-7%2B-5391FE?style=flat-square&logo=powershell&logoColor=white&labelColor=2C3E50)
 ![GitHub Stars](https://img.shields.io/github/stars/arnaudcharles/psbite?style=flat-square&logo=github&color=FFD700&labelColor=2C3E50)

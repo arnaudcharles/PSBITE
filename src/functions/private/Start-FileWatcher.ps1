@@ -71,7 +71,6 @@ function Start-FileWatcher {
             param($Path)
             if (Test-Path $Path) {
                 return (Get-Item $Path).LastWriteTime
-                Write-Verbose "Remote file last write time: $($_.LastWriteTime)"
             }
             return $null
         } -ArgumentList $RemotePath
@@ -110,7 +109,6 @@ function Start-FileWatcher {
                         param($Path)
                         if (Test-Path $Path) {
                             return (Get-Item $Path).LastWriteTime
-                            Write-Verbose "Remote file last write time: $($_.LastWriteTime)"
                         }
                         return $null
                     } -ArgumentList $RemotePath
@@ -146,7 +144,6 @@ function Start-FileWatcher {
                             param($Path)
                             if (Test-Path $Path) {
                                 return (Get-Item $Path).LastWriteTime
-                                Write-Verbose "Remote file last write time: $($_.LastWriteTime)"
                             }
                             return $null
                         } -ArgumentList $RemotePath
