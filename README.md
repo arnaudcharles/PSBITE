@@ -25,7 +25,7 @@ It provides a familiar VIM interface with NORMAL and INSERT modes, character ope
 <br>
 <br>
 
-💡 Included : Another function, **Edit-RemoteFile** is providing another way to remotly **open/editing** file with **VSCode** (or notepad) using **WinRM**.
+💡 Included : Another function, **Edit-RemoteFile** is providing another way to remotely **open/editing** file with **VSCode** (or notepad) using **WinRM**.
 
 ## 👀 What it look like
 
@@ -209,7 +209,7 @@ PSBite is a VI like that capture the key touched to do action where Edit-RemoteF
 
 Since I was using core server, as soon as you need to manipulate file, logs or create file without GUI it was honestly a nightmare for me. I was not able to find something like nano built-in or even depending on VSCode. Because I'm working in a high secure area, we cannot afford to install cosmetic or non approved software like Vim on each servers. This is where the creation of this module started, because custom and selfmade PowerShell module are already running why not creating mine that can benefit my daily work and help the community ?
 
-It was like a challenge after attemping [PSConf](https://psconf.eu/), I wanted to make something that was able to make me proud and ready to myself go on stage next time.
+It was like a challenge after attempting [PSConf](https://psconf.eu/), I wanted to make something that was able to make me proud and ready to myself go on stage next time.
 
 Then Edit-RemoteFile came alive in parallel for the same reasons, mainly for internal usage but finally integrated to PSBite because it's working not the same way and can also benefit to other users.
 
@@ -239,6 +239,3 @@ You can either help by picking up an existing issue or submit a new one if you h
 Thanks to [Marius](https://github.com/MariusStorhaug) for his job on [PsModule Framework](https://psmodule.io/ ) used to built the skeleton of PSBITE.
 
 Thanks to my colleagues who challenged me, helped me publish it and using it daily.
-
-
-

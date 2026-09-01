@@ -24,6 +24,9 @@ function Start-PSBite {
         Start-PSBite -FilePath "C:\scripts\remote.ps1" -ComputerName "server01"
         Edit a remote file with real-time synchronization
 
+    .LINK
+        https://psmodule.io/PSBITE/Functions/Start-PSBite/
+
     .NOTES
         Controls:
         - i       : Enter INSERT mode
