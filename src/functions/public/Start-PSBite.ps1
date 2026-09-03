@@ -16,6 +16,18 @@ function Start-PSBite {
     .PARAMETER UseSSL
         Use SSL for remote connection (default: true)
 
+    .PARAMETER Credential
+        PowerShell credentials to use for the remote connection. Ignored if -Session is provided.
+
+    .PARAMETER SkipCertificateCheck
+        If specified, SSL/TLS certificate verification will be skipped. Ignored if -Session is provided.
+
+    .PARAMETER Session
+        An already-established PSSession to reuse instead of opening a new remote connection.
+
+    .PARAMETER InitialLine
+        1-based line number to place the cursor on when the editor opens (default: 1).
+
     .EXAMPLE
         Start-PSBite -FilePath "C:\test.txt"
         Edit a local file
@@ -67,7 +79,19 @@ function Start-PSBite {
         [switch]$AutoSave,
 
         [Parameter(HelpMessage = "Use SSL for remote connection")]
-        [bool]$UseSSL = $true
+        [bool]$UseSSL = $true,
+
+        [Parameter(HelpMessage = "Credential to use for the remote connection")]
+        [PSCredential]$Credential,
+
+        [Parameter(HelpMessage = "Skip SSL/TLS certificate verification for the remote connection")]
+        [switch]$SkipCertificateCheck,
+
+        [Parameter(HelpMessage = "An already-established PSSession to reuse")]
+        [System.Management.Automation.Runspaces.PSSession]$Session,
+
+        [Parameter(HelpMessage = "1-based line number to place the cursor on when the editor opens")]
+        [int]$InitialLine = 1
     )
 
     # Initialize global clipboard if not exists
@@ -91,11 +115,21 @@ function Start-PSBite {
         Write-Host "🌐 PSBITE - Remote Mode" -ForegroundColor Magenta
         Write-Host "   📂 Remote path: $FilePath" -ForegroundColor Cyan
         if ($AutoSave) { Write-Host "   ⏰ AutoSave: Every 5 minutes" -ForegroundColor Yellow }
-        Start-RemotePSBite -FilePath $FilePath -ComputerName $ComputerName -UseSSL $UseSSL -AutoSave:$AutoSave
+        $remoteParams = @{
+            FilePath             = $FilePath
+            ComputerName         = $ComputerName
+            UseSSL               = $UseSSL
+            Credential           = $Credential
+            SkipCertificateCheck = $SkipCertificateCheck
+            Session              = $Session
+            AutoSave             = $AutoSave
+            InitialLine          = $InitialLine
+        }
+        Start-RemotePSBite @remoteParams
     } else {
         Write-Host "💻 PSBITE - Local Mode" -ForegroundColor Green
         Write-Host "   📂 Local path: $FilePath" -ForegroundColor Cyan
         if ($AutoSave) { Write-Host "   ⏰ AutoSave: Every 5 minutes" -ForegroundColor Yellow }
-        Start-LocalPSBite -FilePath $FilePath -AutoSave:$AutoSave
+        Start-LocalPSBite -FilePath $FilePath -AutoSave:$AutoSave -InitialLine $InitialLine
     }
 }
