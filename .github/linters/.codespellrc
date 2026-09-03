@@ -1,3 +1,3 @@
 [codespell]
-# Intentional: "ower" comes from the README acronym styling ("**P**ower**S**hell").
-ignore-words-list = ower
+# Intentional: "ower"/"uffer" come from the README acronym styling ("**P**ower**S**hell", "**B**uffer").
+ignore-words-list = ower,uffer
