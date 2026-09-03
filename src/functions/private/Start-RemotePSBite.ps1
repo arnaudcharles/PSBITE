@@ -16,8 +16,20 @@ function Start-RemotePSBite {
     .PARAMETER UseSSL
         Specifies whether to use SSL for the remote session.
 
+    .PARAMETER Credential
+        PowerShell credentials to use for the remote session. Ignored if -Session is provided.
+
+    .PARAMETER SkipCertificateCheck
+        If specified, SSL/TLS certificate verification will be skipped. Ignored if -Session is provided.
+
+    .PARAMETER Session
+        An already-established PSSession to reuse instead of opening a new connection.
+
     .PARAMETER AutoSave
         If set, automatically saves changes to the remote file.
+
+    .PARAMETER InitialLine
+        1-based line number to place the cursor on when the editor opens (default: 1).
 
     .EXAMPLE
         Start-RemotePSBite -FilePath "C:\Scripts\MyScript.ps1" -ComputerName "Server01" -UseSSL $true -AutoSave
@@ -33,26 +45,42 @@ function Start-RemotePSBite {
         [string]$FilePath,
         [string]$ComputerName,
         [bool]$UseSSL,
+        [PSCredential]$Credential,
+        [switch]$SkipCertificateCheck,
+        [System.Management.Automation.Runspaces.PSSession]$Session,
 
         [Parameter()]
-        [switch]$AutoSave
+        [switch]$AutoSave,
+
+        [Parameter()]
+        [int]$InitialLine = 1
     )
 
     $session = $null
     $localTempFile = $null
+    $ownsSession = $false
 
     try {
-        Write-Host "🔗 Connecting to $ComputerName..." -ForegroundColor Yellow
+        if ($Session) {
+            # Reuse a session opened by the caller (e.g. an explorer already connected)
+            $session = $Session
+            Write-Host "🔗 Reusing existing session to $ComputerName..." -ForegroundColor Yellow
+        } else {
+            Write-Host "🔗 Connecting to $ComputerName..." -ForegroundColor Yellow
 
-        # Create remote session
-        $sessionParams = @{
-            ComputerName = $ComputerName
-            ErrorAction  = 'Stop'
+            # Create remote session
+            $sessionParams = @{
+                ComputerName = $ComputerName
+                ErrorAction  = 'Stop'
+            }
+            if ($UseSSL) { $sessionParams.UseSSL = $true }
+            if ($Credential) { $sessionParams.Credential = $Credential }
+            if ($SkipCertificateCheck) { $sessionParams.SessionOption = New-PSSessionOption -SkipCACheck -SkipCNCheck -SkipRevocationCheck }
+
+            $session = New-PSSession @sessionParams
+            $ownsSession = $true
+            Write-Host "✅ Connected to $ComputerName" -ForegroundColor Green
         }
-        if ($UseSSL) { $sessionParams.UseSSL = $true }
-
-        $session = New-PSSession @sessionParams
-        Write-Host "✅ Connected to $ComputerName" -ForegroundColor Green
 
         # Check remote permissions
         Write-Host "🔐 Checking remote permissions..." -ForegroundColor Yellow
@@ -100,11 +128,19 @@ function Start-RemotePSBite {
         Write-Host "✅ File downloaded" -ForegroundColor Green
 
         # Start PSBITE with remote sync
-        Start-RemotePSBiteEditor -LocalPath $localTempFile -RemotePath $FilePath -Session $session -ComputerName $ComputerName -AutoSave:$AutoSave
+        $editorParams = @{
+            LocalPath    = $localTempFile
+            RemotePath   = $FilePath
+            Session      = $session
+            ComputerName = $ComputerName
+            AutoSave     = $AutoSave
+            InitialLine  = $InitialLine
+        }
+        Start-RemotePSBiteEditor @editorParams
     } catch {
         Write-Error "Error in Remote PSBITE: $_"
     } finally {
-        if ($session) {
+        if ($session -and $ownsSession) {
             Remove-PSSession $session -ErrorAction SilentlyContinue
         }
         if ($localTempFile -and (Test-Path $localTempFile)) {

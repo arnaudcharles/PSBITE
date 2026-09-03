@@ -26,7 +26,10 @@ function Start-RemotePSBiteEditor {
         [string]$ComputerName,
 
         [Parameter()]
-        [switch]$AutoSave
+        [switch]$AutoSave,
+
+        [Parameter(HelpMessage = "1-based line number to place the cursor on when the editor opens")]
+        [int]$InitialLine = 1
     )
 
     # Load file
@@ -40,7 +43,8 @@ function Start-RemotePSBiteEditor {
         $lines = [string[]]$content
     }
 
-    $cursorRow = 0
+    # Place the cursor on the requested line, clamped to the file's actual bounds
+    $cursorRow = [Math]::Min([Math]::Max(0, $InitialLine - 1), $lines.Count - 1)
     $cursorCol = 0
     $mode = "NORMAL"
     $saved = $true

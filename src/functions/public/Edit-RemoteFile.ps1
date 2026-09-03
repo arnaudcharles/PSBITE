@@ -50,6 +50,9 @@ function Edit-RemoteFile {
         Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -DelTemp
         Edit and delete temporary file when finished
 
+    .LINK
+        https://psmodule.io/PSBITE/Functions/Edit-RemoteFile/
+
     .NOTES
         Author: Arnaud Charles
         GitHub: https://github.com/arnaudcharles
