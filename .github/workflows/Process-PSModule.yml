@@ -29,7 +29,7 @@ permissions:
 
 jobs:
   Process-PSModule:
-    uses: PSModule/Process-PSModule/.github/workflows/workflow.yml@v8
+    uses: PSModule/Process-PSModule/.github/workflows/workflow.yml@v8 # zizmor: ignore[unpinned-uses] official PSModule.io major-version tag, per framework's own convention
     secrets:
       PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
       GitHubAppClientId: ${{ secrets.APP_CLIENT_ID }}
