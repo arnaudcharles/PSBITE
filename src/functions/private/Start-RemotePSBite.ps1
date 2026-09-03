@@ -74,7 +74,11 @@ function Start-RemotePSBite {
                 ErrorAction  = 'Stop'
             }
             if ($UseSSL) { $sessionParams.UseSSL = $true }
-            if ($Credential) { $sessionParams.Credential = $Credential }
+            if ($Credential) {
+                $sessionParams.Credential = $Credential
+                # Negotiate allows NTLM fallback for cross-domain/bastion hosts where Kerberos SPN resolution fails
+                $sessionParams.Authentication = 'Negotiate'
+            }
             if ($SkipCertificateCheck) { $sessionParams.SessionOption = New-PSSessionOption -SkipCACheck -SkipCNCheck -SkipRevocationCheck }
 
             $session = New-PSSession @sessionParams
