@@ -20,3 +20,6 @@ Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -DelT
 
 # Edit with verbose output showing file paths
 Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -Verbose
+
+# Edit on a host using explicit credentials and a self-signed certificate
+Edit-RemoteFile -ComputerName "lab01" -RemotePath "C:\Scripts\test.ps1" -Credential $cred -SkipCertificateCheck

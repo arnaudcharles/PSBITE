@@ -22,6 +22,13 @@ function Edit-RemoteFile {
     .PARAMETER UseSSL
         Use SSL for WinRM connection (default: true)
 
+    .PARAMETER Credential
+        PowerShell credentials to use for the remote connection. Without it the current user is used.
+
+    .PARAMETER SkipCertificateCheck
+        If specified, SSL/TLS certificate verification will be skipped. Needed for hosts using a
+        self-signed certificate.
+
     .PARAMETER DelTemp
         Delete temporary file when finished (default: false - file is preserved)
 
@@ -49,6 +56,10 @@ function Edit-RemoteFile {
     .EXAMPLE
         Edit-RemoteFile -ComputerName "server01" -RemotePath "C:\Scripts\test.ps1" -DelTemp
         Edit and delete temporary file when finished
+
+    .EXAMPLE
+        Edit-RemoteFile -ComputerName "lab01" -RemotePath "C:\Scripts\test.ps1" -Credential $cred -SkipCertificateCheck
+        Edit on a host using explicit credentials and a self-signed certificate
 
     .LINK
         https://psmodule.io/PSBITE/Functions/Edit-RemoteFile/
@@ -87,6 +98,12 @@ function Edit-RemoteFile {
         [Parameter(HelpMessage = "Use SSL for WinRM connection")]
         [bool]$UseSSL = $true,
 
+        [Parameter(HelpMessage = "Credential to use for the remote connection")]
+        [PSCredential]$Credential,
+
+        [Parameter(HelpMessage = "Skip SSL/TLS certificate verification for the remote connection")]
+        [switch]$SkipCertificateCheck,
+
         [Parameter(HelpMessage = "Delete temporary file when finished")]
         [Alias('d')]
         [switch]$DelTemp,
@@ -114,7 +131,14 @@ function Edit-RemoteFile {
             Write-Host "`n[1/7] Connecting to remote server..." -ForegroundColor Yellow
         }
 
-        $sessionOption = New-PSSessionOption -NoMachineProfile
+        $sessionOptionParams = @{ NoMachineProfile = $true }
+        if ($SkipCertificateCheck) {
+            $sessionOptionParams.SkipCACheck = $true
+            $sessionOptionParams.SkipCNCheck = $true
+            $sessionOptionParams.SkipRevocationCheck = $true
+        }
+        $sessionOption = New-PSSessionOption @sessionOptionParams
+
         $sessionParams = @{
             ComputerName  = $ComputerName
             ErrorAction   = 'Stop'
@@ -125,6 +149,11 @@ function Edit-RemoteFile {
             if (-not $Silent) { Write-Verbose "Using SSL connection" }
         } else {
             if (-not $Silent) { Write-Verbose "Using non-SSL connection" }
+        }
+        if ($Credential) {
+            $sessionParams.Credential = $Credential
+            # Negotiate allows NTLM fallback for cross-domain/bastion hosts where Kerberos SPN resolution fails
+            $sessionParams.Authentication = 'Negotiate'
         }
 
         # Create session and handle MOTD suppression
@@ -146,7 +175,7 @@ function Edit-RemoteFile {
         Write-Verbose "Local file will be in: $LocalTempDir"
         Write-Verbose "Remote file is: $RemotePath"
         Write-Verbose "Session details: $($session | Format-List | Out-String)"
-        Write-Verbose "UseSSL: $UseSSL, DelTemp: $DelTemp, Dual: $Dual, Silent: $Silent"
+        Write-Verbose "UseSSL: $UseSSL, SkipCertificateCheck: $SkipCertificateCheck, DelTemp: $DelTemp, Dual: $Dual, Silent: $Silent"
 
         # 2. Check/Create remote file
         if (-not $Silent) {
