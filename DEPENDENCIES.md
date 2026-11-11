@@ -25,10 +25,16 @@ graph TD
     N14[Test-PSBitePermission]
     N15[Write-PSBiteEditor]
     N11[Write-PSBiteMessage]
+    N16[New-PSSessionCallback]
+    N17[Enter-PSSessionWithCallback]
+    N18[Start-PSBiteSession]
     N0 --> N5
     N0 --> N10
     N1 --> N7
     N1 --> N8
+    N1 --> N18
+    N18 -.-> N16
+    N18 -.-> N17
     N2 -.-> N11
     N3 -.-> N2
     N3 -.-> N12
@@ -68,14 +74,17 @@ graph TD
     style N14 fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
     style N15 fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
     style N11 fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
+    style N16 fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
+    style N17 fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
+    style N18 fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
 ```
 
 ## 📊 Summary
 - **Public functions**: 6
-- **Private functions**: 14
-- **Public → Private dependencies**: 4
-- **Private → Private dependencies**: 22
-- **Total dependencies detected**: 26
+- **Private functions**: 17
+- **Public → Private dependencies**: 5
+- **Private → Private dependencies**: 24
+- **Total dependencies detected**: 29
 
 ## 📋 Public → Private Dependencies
 
@@ -88,6 +97,7 @@ Depends on:
 Depends on:
 - `Start-LocalPSBite`
 - `Start-RemotePSBite`
+- `Start-PSBiteSession`
 
 ## 🔗 Private → Private Dependencies
 
@@ -137,6 +147,11 @@ Depends on:
 - `Write-PSBiteEditor`
 - `Write-PSBiteMessage`
 
+### 🔸 `Start-PSBiteSession`
+Depends on:
+- `New-PSSessionCallback`
+- `Enter-PSSessionWithCallback`
+
 ## 📈 Statistics
 
 ### Most Used Private Functions
@@ -147,5 +162,5 @@ Depends on:
 - `Test-PSBitePermission`: referenced 2 time(s)
 
 ### Dependency Chain Analysis
-- **Private functions with dependencies**: 8
-- **Leaf private functions** (no dependencies): 6
+- **Private functions with dependencies**: 9
+- **Leaf private functions** (no dependencies): 8

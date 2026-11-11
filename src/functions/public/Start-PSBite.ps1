@@ -28,6 +28,11 @@ function Start-PSBite {
     .PARAMETER InitialLine
         1-based line number to place the cursor on when the editor opens (default: 1).
 
+    .PARAMETER EnterSession
+        Enter an interactive session on -ComputerName instead of opening a file, like Enter-PSSession.
+        Inside that session the PSBITE commands are available and run on the local host against the
+        remote path. Nothing is installed on the remote computer.
+
     .EXAMPLE
         Start-PSBite -FilePath "C:\test.txt"
         Edit a local file
@@ -35,6 +40,14 @@ function Start-PSBite {
     .EXAMPLE
         Start-PSBite -FilePath "C:\scripts\remote.ps1" -ComputerName "server01"
         Edit a remote file with real-time synchronization
+
+    .EXAMPLE
+        Start-PSBite -ComputerName "server01" -EnterSession
+        Enter server01, then edit from the remote prompt with: psbite .\test.txt
+
+    .EXAMPLE
+        psbite -es server01
+        Same thing, short form: ComputerName is positional when entering a session
 
     .LINK
         https://psmodule.io/PSBITE/Functions/Start-PSBite/
@@ -63,19 +76,24 @@ function Start-PSBite {
         "PSUseShouldProcessForStateChangingFunctions", "", Justification = "Interactive text editor - confirmations would break user experience"
     )]
     [OutputType([void])]
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'File')]
     [Alias('psbite')]
     param(
-        [Parameter(Mandatory = $true, Position = 0, HelpMessage = "Path to the file to edit")]
+        [Parameter(Mandatory = $true, Position = 0, ParameterSetName = 'File', HelpMessage = "Path to the file to edit")]
         [ValidateNotNullOrEmpty()]
         [Alias('f', 'File')]
         [string]$FilePath,
 
-        [Parameter(HelpMessage = "Remote computer name for remote editing")]
+        [Parameter(ParameterSetName = 'File', HelpMessage = "Remote computer name for remote editing")]
+        [Parameter(Mandatory = $true, Position = 0, ParameterSetName = 'EnterSession', HelpMessage = "Remote computer name to enter")]
         [Alias('cn', 'Computer')]
         [string]$ComputerName,
 
-        [Parameter(HelpMessage = "Enable automatic file saving every 5 minutes")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'EnterSession', HelpMessage = "Enter an interactive remote session driving PSBITE from the local host")]
+        [Alias('es')]
+        [switch]$EnterSession,
+
+        [Parameter(ParameterSetName = 'File', HelpMessage = "Enable automatic file saving every 5 minutes")]
         [switch]$AutoSave,
 
         [Parameter(HelpMessage = "Use SSL for remote connection")]
@@ -87,12 +105,25 @@ function Start-PSBite {
         [Parameter(HelpMessage = "Skip SSL/TLS certificate verification for the remote connection")]
         [switch]$SkipCertificateCheck,
 
-        [Parameter(HelpMessage = "An already-established PSSession to reuse")]
+        [Parameter(ParameterSetName = 'File', HelpMessage = "An already-established PSSession to reuse")]
         [System.Management.Automation.Runspaces.PSSession]$Session,
 
-        [Parameter(HelpMessage = "1-based line number to place the cursor on when the editor opens")]
+        [Parameter(ParameterSetName = 'File', HelpMessage = "1-based line number to place the cursor on when the editor opens")]
         [int]$InitialLine = 1
     )
+
+    if ($PSCmdlet.ParameterSetName -eq 'EnterSession') {
+        Write-Host "🛰️  PSBITE - Session Mode" -ForegroundColor Blue
+        Write-Host "   🖥️  Remote host: $ComputerName" -ForegroundColor Cyan
+        $enterParams = @{
+            ComputerName         = $ComputerName
+            UseSSL               = $UseSSL
+            Credential           = $Credential
+            SkipCertificateCheck = $SkipCertificateCheck
+        }
+        Start-PSBiteSession @enterParams
+        return
+    }
 
     # Initialize global clipboard if not exists
     if (-not (Get-Variable -Name PSBiteClipboard -Scope Script -ErrorAction SilentlyContinue)) {
